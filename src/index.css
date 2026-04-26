@@ -1040,16 +1040,206 @@ main {
   width: 64px;
   height: 64px;
   margin-left: -32px;
+  grid-column: span 4;
+  display: grid;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .skill-card {
+    grid-column: span 12;
+  }
+}
+
+.skill-label {
+  font-weight: 650;
+}
+
+.edu {
+  display: grid;
+  gap: 14px;
+}
+
+.edu-card {
+  display: grid;
+  gap: 6px;
+}
+
+.edu-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.edu-school {
+  font-weight: 650;
+}
+
+.edu-year {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.contact {
+  display: grid;
+  gap: 14px;
+}
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.contact-meta {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.contact-meta .sep {
+  opacity: 0.8;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 18px 0;
+  background: rgba(var(--fg-rgb), 0.02);
+}
+
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+@media (max-width: 700px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.footer-links {
+  display: flex;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.footer-links a {
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.footer-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0);
+  transform-origin: 0% 50%;
+  transition: transform 180ms ease;
+  opacity: 0.9;
+}
+
+.footer-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.footer-links a:hover {
+  color: var(--text);
+}
+
+/* Custom cursor */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+
+.cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.cursor.is-visible {
+  opacity: 1;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
+  background: rgba(var(--fg-rgb), 0.9);
+  border-radius: 999px;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  margin-top: -18px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--fg-rgb), 0.42);
+  background: rgba(var(--fg-rgb), 0.04);
+  backdrop-filter: blur(4px);
+  transition: width 160ms ease, height 160ms ease, margin 160ms ease, background 160ms ease, border-color 160ms ease,
+    opacity 160ms ease;
+  opacity: 0.9;
+}
+
+.cursor.mode-link .cursor-ring {
+  width: 54px;
+  height: 54px;
+  margin-left: -27px;
+  margin-top: -27px;
+  background: rgba(125, 211, 252, 0.08);
+  border-color: rgba(125, 211, 252, 0.55);
+}
+
+.cursor.mode-text .cursor-ring {
+  width: 46px;
+  height: 46px;
+  margin-left: -23px;
+  margin-top: -23px;
+  background: rgba(167, 139, 250, 0.08);
+  border-color: rgba(167, 139, 250, 0.55);
+}
+
+.cursor.mode-drag .cursor-ring {
+  width: 64px;
+  height: 64px;
+  margin-left: -32px;
   margin-top: -32px;
   background: rgba(var(--fg-rgb), 0.06);
   border-color: rgba(var(--fg-rgb), 0.55);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .cursor {
-    display: none;
-  }
-}
 
 /* --- Secret Page --- */
 .secret-page {
@@ -1070,7 +1260,8 @@ main {
 .secret-nav, 
 .secret-main-layout,
 .vibe-toggle,
-.btn-row {
+.btn-row,
+.narrative-block {
   pointer-events: auto;
 }
 
@@ -1158,6 +1349,21 @@ main {
   position: absolute;
   max-width: 500px;
   text-align: left;
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+}
+
+.narrative-block p {
+  font-size: 17px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.narrative-block h3 {
+  font-size: 24px;
+  margin-bottom: 12px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 .scroll-hint {
@@ -1174,6 +1380,7 @@ main {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
+  z-index: 5;
 }
 
 .scroll-line {

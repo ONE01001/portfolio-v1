@@ -116,25 +116,21 @@ export function ClickMePage({ onBack }: Props) {
 
           {/* Sticky Right: The Text Narrative */}
           <div className="secret-narrative-sticky">
-            {/* Section 1 */}
             <motion.div style={{ opacity: opacity1, y: y1, pointerEvents: pe1 }} className="narrative-block">
               <h2 className="h1 gradient-text">This is a secret.</h2>
               <p className="lead">You found the personal side of this portfolio. This isn't just a site; it's a reflection of my growth and passion.</p>
             </motion.div>
 
-            {/* Section 2 */}
             <motion.div style={{ opacity: opacity2, y: y2, pointerEvents: pe2 }} className="narrative-block">
               <h3 className="gradient-text-2">Human + AI Collaboration</h3>
               <p>I built this entire experience leveraging the power of **Cursor** and **Antigravity**. Beyond just using web-based AI, I've mastered running AI models **locally** on my own hardware to push the boundaries of what I can create, securely and efficiently.</p>
             </motion.div>
 
-            {/* Section 3 */}
             <motion.div style={{ opacity: opacity3, y: y3, pointerEvents: pe3 }} className="narrative-block">
               <h3 className="gradient-text">Her Inspiration</h3>
-              <p>Deeply inspired by the incredible work of <a href="https://www.gazijarin.com/" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>Gazi Jarin</a>. **Her** unique approach to storytelling through code and design motivated me to build something more than just a typical resume.</p>
+              <p>Deeply inspired by the incredible work of <a href="https://www.gazijarin.com/" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }} title="https://www.gazijarin.com/">Gazi Jarin</a>. **Her** unique approach to storytelling through code and design motivated me to build something more than just a typical resume.</p>
             </motion.div>
 
-            {/* Section 4 */}
             <motion.div style={{ opacity: opacity4, y: y4, pointerEvents: pe4 }} className="narrative-block">
               <h3 className="gradient-text-2">The Motivation</h3>
               <p>Web development is my focus, but 3D modeling in Blender is where I let my creativity run wild. I'm constantly learning, evolving, and using AI to become a more versatile developer every single day.</p>
