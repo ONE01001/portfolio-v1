@@ -106,6 +106,8 @@ export function ClickMePage({ onBack }: Props) {
                   animate={{ opacity: 1, scale: 1 }}
                   className="original-photo"
                   alt="Hardik Rana Original"
+                  loading="lazy"
+                  decoding="async"
                 />
               ) : (
                 <AsciiAvatar src={secretAvatar} alt="Hardik Rana Secret Avatar" />
