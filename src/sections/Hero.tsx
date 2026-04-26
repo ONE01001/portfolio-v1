@@ -2,9 +2,10 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { PROFILE, TECH_COLORS } from "../content";
-import headshot from "../assets/headshot.jpeg";
 // import newHeadshot from "../assets/new_headshot.jpg";
 import newHeadshotPng from "../assets/new_headshot.png";
+import githubQr from "../assets/github-qr.png";
+import linkedinQr from "../assets/linkedin-qr.png";
 import { AsciiAvatar } from "../components/AsciiAvatar";
 
 type Props = {
@@ -13,6 +14,7 @@ type Props = {
 
 export function Hero({ onEmail }: Props) {
   const [isPopArtMode, setIsPopArtMode] = useState(false);
+  const [activeQr, setActiveQr] = useState<string | null>(null);
   const reduce = useReducedMotion();
   const accentRef = useRef<HTMLDivElement | null>(null);
   const accentScrollRef = useRef<HTMLDivElement | null>(null);
@@ -86,45 +88,69 @@ export function Hero({ onEmail }: Props) {
             animate={reduce ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           >
-            <motion.button
+            <motion.a
               className="btn btn-primary"
-              type="button"
-              onClick={onEmail}
+              href={`mailto:${PROFILE.email}`}
+              title={PROFILE.email}
               whileHover={reduce ? {} : { y: -1 }}
               whileTap={reduce ? {} : { scale: 0.98 }}
               data-cursor="link"
               style={{ color: "#F5792A" }}
             >
-              Email me
-            </motion.button>
+              Let's Talk
+            </motion.a>
 
             {PROFILE.socials.github ? (
-              <motion.a
-                className="btn btn-ghost"
-                href={PROFILE.socials.github}
-                target="_blank"
-                rel="noreferrer"
-                whileHover={reduce ? {} : { y: -1 }}
-                whileTap={reduce ? {} : { scale: 0.99 }}
-                data-cursor="link"
-                style={{ color: "#A8A8A8" }}
-              >
-                GitHub
-              </motion.a>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <motion.a
+                  className="btn btn-ghost"
+                  href={PROFILE.socials.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  whileHover={reduce ? {} : { y: -1 }}
+                  whileTap={reduce ? {} : { scale: 0.99 }}
+                  data-cursor="link"
+                  style={{ color: "#A8A8A8" }}
+                >
+                  GitHub
+                </motion.a>
+                <motion.button
+                  className="btn btn-ghost"
+                  onClick={() => setActiveQr('github')}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{ padding: '8px', color: '#A8A8A8', borderRadius: '50%' }}
+                  title="Show QR Code"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </motion.button>
+              </div>
             ) : null}
             {PROFILE.socials.linkedin ? (
-              <motion.a
-                className="btn btn-ghost"
-                href={PROFILE.socials.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                whileHover={reduce ? {} : { y: -1 }}
-                whileTap={reduce ? {} : { scale: 0.99 }}
-                data-cursor="link"
-                style={{ color: "#0A66C2" }}
-              >
-                LinkedIn
-              </motion.a>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <motion.a
+                  className="btn btn-ghost"
+                  href={PROFILE.socials.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  whileHover={reduce ? {} : { y: -1 }}
+                  whileTap={reduce ? {} : { scale: 0.99 }}
+                  data-cursor="link"
+                  style={{ color: "#0A66C2" }}
+                >
+                  LinkedIn
+                </motion.a>
+                <motion.button
+                  className="btn btn-ghost"
+                  onClick={() => setActiveQr('linkedin')}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  style={{ padding: '8px', color: '#0A66C2', borderRadius: '50%' }}
+                  title="Show QR Code"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                </motion.button>
+              </div>
             ) : null}
           </motion.div>
         </div>
@@ -213,6 +239,51 @@ export function Hero({ onEmail }: Props) {
           </div>
         </div>
       </div>
+      <div className="bg-drift" />
+      {activeQr && (
+        <div 
+          onClick={() => setActiveQr(null)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            background: 'rgba(0,0,0,0.6)',
+            backdropFilter: 'blur(10px)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer'
+          }}
+        >
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            style={{
+              background: 'var(--panel)',
+              border: '1px solid var(--border)',
+              padding: '24px',
+              borderRadius: '24px',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '16px'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img 
+              src={activeQr === 'github' ? githubQr : linkedinQr} 
+              alt="QR Code" 
+              style={{ width: '240px', height: '240px', borderRadius: '12px', background: 'white', padding: '8px' }} 
+            />
+            <div style={{ fontWeight: 600, fontSize: '18px' }}>
+              {activeQr === 'github' ? 'Scan for GitHub' : 'Scan for LinkedIn'}
+            </div>
+            <button className="btn btn-primary" onClick={() => setActiveQr(null)}>Close</button>
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 }

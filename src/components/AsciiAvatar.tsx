@@ -26,9 +26,7 @@ function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
 }
 
-function mix(a: number, b: number, t: number) {
-  return a + (b - a) * t;
-}
+
 
 function colorFor(alpha: number, accent: number, depth: number, time: number, isPopArtMode?: boolean) {
   if (isPopArtMode) {
