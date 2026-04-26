@@ -392,6 +392,8 @@ main {
   outline: none;
   box-shadow: none;
   background: transparent;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .avatar-frame {
@@ -1407,17 +1409,19 @@ main {
   
   .secret-avatar-sticky {
     order: 2;
+    padding-bottom: 40px;
+    margin-top: -20px;
   }
 
   .secret-page .avatar-wrapper {
-    width: 100%;
-    max-width: 320px;
-    aspect-ratio: auto;
-    height: auto;
+    width: 280px;
+    height: 280px;
+    aspect-ratio: 1;
+    margin: 0 auto;
   }
 
   .secret-page .avatar {
-    height: 320px;
+    height: 280px;
   }
   
   .secret-narrative-sticky {

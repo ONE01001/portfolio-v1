@@ -128,8 +128,8 @@ export function ClickMePage({ onBack }: Props) {
             </motion.div>
 
             <motion.div style={{ opacity: opacity3, y: y3, pointerEvents: pe3 }} className="narrative-block">
-              <h3 className="gradient-text">Her Inspiration</h3>
-              <p>Deeply inspired by the incredible work of <a href="https://www.gazijarin.com/" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }} title="https://www.gazijarin.com/">Gazi Jarin</a>. **Her** unique approach to storytelling through code and design motivated me to build something more than just a typical resume.</p>
+              <h3 className="gradient-text">My Inspiration is Her</h3>
+              <p>Deeply inspired by the incredible work of <a href="https://www.gazijarin.com/" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }} title="https://www.gazijarin.com/">Gazi Jarin</a>. My unique approach to storytelling through code and design is heavily influenced by her vision, which motivated me to build something far beyond a typical resume.</p>
             </motion.div>
 
             <motion.div style={{ opacity: opacity4, y: y4, pointerEvents: pe4 }} className="narrative-block">

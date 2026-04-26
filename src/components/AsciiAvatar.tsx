@@ -58,8 +58,14 @@ function measure(el: HTMLElement) {
 
 function sampleImage(image: HTMLImageElement, width: number, height: number): Glyph[] {
   const offscreen = document.createElement("canvas");
-  const ctx = offscreen.getContext("2d", { willReadFrequently: true });
+  const ctx = offscreen.getContext("2d", { 
+    willReadFrequently: true,
+    alpha: true 
+  });
   if (!ctx) return [];
+
+  // Optimization: Disable smoothing to speed up sampling
+  ctx.imageSmoothingEnabled = false;
 
   offscreen.width = width;
   offscreen.height = height;

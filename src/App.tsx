@@ -22,7 +22,7 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2200); // 2.2 seconds to allow the progress bar to finish smoothly
+    }, 4500); // 4.5 seconds for an ultra-smooth background preparation
     return () => clearTimeout(timer);
   }, []);
 
