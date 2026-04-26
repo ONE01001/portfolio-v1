@@ -31,6 +31,14 @@ export default function App() {
   const { scrollYProgress } = useScroll();
   const drift = useTransform(scrollYProgress, [0, 1], [0, -48]);
 
+  useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [isLoading]);
+
   const [path, setPath] = useState(() => window.location.pathname);
   useEffect(() => {
     const onPop = () => setPath(window.location.pathname);
