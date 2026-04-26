@@ -8,11 +8,7 @@ import githubQr from "../assets/github-qr.png";
 import linkedinQr from "../assets/linkedin-qr.png";
 import { AsciiAvatar } from "../components/AsciiAvatar";
 
-type Props = {
-  onEmail: () => void;
-};
-
-export function Hero({ onEmail }: Props) {
+export function Hero() {
   const [isPopArtMode, setIsPopArtMode] = useState(false);
   const [activeQr, setActiveQr] = useState<string | null>(null);
   const reduce = useReducedMotion();

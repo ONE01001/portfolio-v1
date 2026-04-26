@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import { AsciiAvatar } from "../components/AsciiAvatar";
 
@@ -11,7 +11,6 @@ type Props = {
 };
 
 export function ClickMePage({ onBack }: Props) {
-  const reduce = useReducedMotion();
   const containerRef = useRef<HTMLDivElement>(null);
   const [isPhotoVibe, setIsPhotoVibe] = useState(false);
 

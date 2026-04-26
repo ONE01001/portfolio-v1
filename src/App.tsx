@@ -50,9 +50,7 @@ export default function App() {
   const manualTimer = useRef<number | null>(null);
   const active = activeManual ?? activeObserved;
 
-  const onEmail = () => {
-    window.location.href = `mailto:${PROFILE.email}`;
-  };
+
 
   const onNavigate = (id: string) => {
     setActiveManual(id);
@@ -84,7 +82,7 @@ export default function App() {
         onSecret={() => navigate("/click-me")}
       />
       <main>
-        <Hero onEmail={onEmail} />
+        <Hero />
         <AISkills />
         <Projects />
         <Skills />
