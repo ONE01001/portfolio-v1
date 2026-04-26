@@ -1,50 +1,71 @@
-# 🚀 The Matrix Portfolio 
+# Hardik Rana — Portfolio
 
-Welcome to the codebase of an interactive, high-end developer portfolio! This project isn't just a static resume; it's a living, breathing canvas built to showcase personality, technical skill, and an eye for cutting-edge design.
+🌐 **[Live Site → portfolio-v1-hmaz.onrender.com](https://portfolio-v1-hmaz.onrender.com/)**
 
-## 🤖 Built with Antigravity
-This project was co-piloted by **Antigravity** (your friendly neighborhood AI assistant from Google DeepMind). Together, we had an absolute blast iterating on this design! 
+---
 
-**The Fun We Had:**
-- 🎭 **The ASCII Avatar:** We took a static headshot and transformed it into a dynamic, interactive ASCII canvas. We tweaked the brightness, contrast, and resolution until it perfectly captured the essence of the user.
-- 💧 **The "Water Drop" Effect:** We added custom spring physics to make the ASCII characters scatter and pull together on load, creating an incredibly satisfying formation animation.
-- 🖱️ **Interactive Physics:** We made the avatar react to the mouse/touch with repulsion physics, bringing the characters to life.
-- 🎨 **The "Two-Sided" Aesthetic (NEON vs. POP):** We played around with themes! We built an ultra-sleek "Matrix/Hacker" Dark Mode, and then experimented with a vibrant "Pop Art" Light Mode. Ultimately, we loved the dark theme so much we locked it in globally—but we kept a sleek, Framer Motion animated toggle switch so users can instantly switch between the classic "NEON" teal and the vibrant "EXTRA COOL" Pop Art gradient on the avatar itself!
-- ⚡ **Optimization:** We hit a performance bottleneck where the 10,000+ characters were lagging the browser. We went deep into the canvas rendering loop, hoisted the `ctx.font` state out of the 60FPS loop, tweaked the character density, and achieved buttery-smooth 60FPS performance. It was a perfect engineering win!
+Hey, I'm **Hardik Rana** — a Frontend-Focused Full Stack Developer based in Delhi, India. I'm currently pursuing my BCA and spending every spare moment building, breaking, and learning things on the web.
 
-## 🏗️ Project Structure
+This portfolio is more than a resume. It's a living project that reflects how I think, what I care about, and how I'm growing as a developer. Every section, animation, and interaction was intentionally crafted to push my skills further.
 
-The project is built with **React**, **TypeScript**, and **Vite**, using **Framer Motion** for UI animations and raw **HTML5 Canvas** for the heavy-duty ASCII rendering.
+---
 
-```text
-src/
-├── assets/             # Images and headshots (including the transparent avatar PNG)
-├── components/         
-│   └── AsciiAvatar.tsx # The star of the show! Custom canvas rendering, physics, and ASCII sampling
-├── hooks/              # Custom React hooks (e.g., useActiveSection, useMediaQuery)
-├── sections/           # The main page layout blocks
-│   ├── About.tsx       # Bio and background
-│   ├── Contact.tsx     # Links and reach-out
-│   ├── Hero.tsx        # The main landing area featuring the Avatar and the COOL/EXTRA COOL toggle
-│   └── Projects.tsx    # Showcase of work
-├── content.ts          # Centralized data file containing all profile info, tags, and project details
-├── index.css           # The design system: variables, gradients, glassmorphism, and the Pop Art dotted backgrounds
-├── App.tsx             # The root assembly of the portfolio
-└── main.tsx            # Vite entry point
+## ✨ What Makes This Different
+
+- **Interactive ASCII Avatar** — A real-time, GPU-accelerated character portrait rendered entirely with code. Hover over it and watch it react.
+- **Solo Leveling-Inspired Secret Page** — Scroll-driven storytelling with parallax text reveals, a vibe toggle, and a personal narrative.
+- **AI-Powered Workflow** — Built using **Cursor** and **Antigravity**. I also run AI models locally to iterate faster and more privately.
+- **Apple-Inspired Glassmorphism** — Premium frosted-glass cards with glow orbs, gradient text, and hover micro-animations.
+- **Flowing Water Text** — Toggle "EXTRA COOL" mode and watch the name gradient animate like liquid light.
+- **QR Code Modals** — Scan-to-connect for GitHub and LinkedIn, with glassmorphism overlays.
+
+---
+
+## 🛠 Tech Stack
+
+| Layer       | Tech                                          |
+|-------------|-----------------------------------------------|
+| **Frontend**| React, TypeScript, Vite                       |
+| **Animation**| Framer Motion, GSAP, Canvas API              |
+| **Styling** | Vanilla CSS (custom design system)            |
+| **Hosting** | Render (Static Site)                          |
+| **AI Tools**| Cursor, Antigravity, Local LLMs               |
+
+---
+
+## 🗂 Sections
+
+| Section           | Description                                              |
+|-------------------|----------------------------------------------------------|
+| **Hero**          | Animated intro with ASCII avatar and social QR codes     |
+| **AI Capabilities** | Glassmorphism cards showcasing AI-driven development  |
+| **Projects**      | Live-deployed apps with tech badges                      |
+| **Skills**        | Categorized skill grid                                   |
+| **About**         | Bullet-point story with availability status              |
+| **Hobbies**       | Personal interests and creative pursuits                 |
+| **Education**     | Academic background                                      |
+| **Contact**       | Direct Gmail composer link and social connections         |
+| **Secret Page**   | Hidden page with scroll-driven narrative *(find it 👀)*  |
+
+---
+
+## 🚀 Run Locally
+
+```bash
+git clone https://github.com/ONE01001/portfolio-v1.git
+cd portfolio-v1
+npm install
+npm run dev
 ```
 
-## 🚀 Getting Started
+---
 
-To run this masterpiece locally:
+## 🙏 Credits & Inspiration
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+- **[Gazi Jarin](https://www.gazijarin.com/)** — Her storytelling through code inspired the narrative-driven design.
+- **[Solo Leveling Anime](https://sololeveling-anime.net/)** — The scroll-reveal mechanic on the secret page.
+- **Cursor & Antigravity** — AI pair-programming tools that accelerated every part of this build.
 
-2. Start the dev server:
-   ```bash
-   npm run dev
-   ```
+---
 
-3. Open `http://localhost:5173` and enjoy the show! Make sure to interact with the avatar and flip the NEON / EXTRA COOL toggle!
+Built with curiosity, AI, and a lot of late nights. 🌙
