@@ -98,8 +98,9 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
       glyphs.push({
         originX: x,
         originY: y,
-        x,
-        y,
+        // Start scattered randomly for the water-drop formation effect
+        x: x + (Math.random() - 0.5) * width * 1.2,
+        y: y + (Math.random() - 0.5) * height * 1.2,
         vx: 0,
         vy: 0,
         char: CHARS[charIndex] ?? ".",
@@ -172,11 +173,19 @@ export function AsciiAvatar({ src, alt }: Props) {
             accent = force;
           }
 
-          // Return strictly to origin point, preserving character grid completely
-          glyph.vx += (glyph.originX - glyph.x) * 0.04 + localVx;
-          glyph.vy += (glyph.originY - glyph.y) * 0.04 + localVy;
-          glyph.vx *= 0.82;
-          glyph.vy *= 0.82;
+          // Water-drop formation: stronger pull during the first 2 seconds
+          const formationDuration = 2000; // 2 seconds
+          const formationProgress = clamp(time / formationDuration, 0, 1);
+          // Ease-out cubic for a fluid, water-like deceleration
+          const ease = 1 - Math.pow(1 - formationProgress, 3);
+          // Spring strength ramps up from very gentle to full
+          const spring = 0.01 + ease * 0.06;
+          const damping = 0.75 + ease * 0.07;
+
+          glyph.vx += (glyph.originX - glyph.x) * spring + localVx;
+          glyph.vy += (glyph.originY - glyph.y) * spring + localVy;
+          glyph.vx *= damping;
+          glyph.vy *= damping;
           glyph.x += glyph.vx;
           glyph.y += glyph.vy;
         } else {
@@ -184,8 +193,12 @@ export function AsciiAvatar({ src, alt }: Props) {
           glyph.y = glyph.originY;
         }
 
+        // Fade in opacity during formation
+        const fadeProgress = clamp(time / 1200, 0, 1);
+        const drawAlpha = glyph.alpha * fadeProgress;
+
         ctx.font = `700 ${glyph.size}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
-        ctx.fillStyle = colorFor(glyph.alpha, accent, glyph.depth, time);
+        ctx.fillStyle = colorFor(drawAlpha, accent, glyph.depth, time);
         ctx.fillText(glyph.char, glyph.x, glyph.y);
       }
     };
