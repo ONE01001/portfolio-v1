@@ -86,9 +86,9 @@ export default function App() {
         <AISkills />
         <Projects />
         <Skills />
-        <Education />
         <About />
         <Hobbies />
+        <Education />
         <Contact />
         <footer className="footer">
           <div className="container footer-inner">

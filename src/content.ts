@@ -34,6 +34,13 @@ export const PROFILE = {
 export const SUMMARY =
   "Frontend-focused Full Stack Developer with hands-on experience building and deploying real-world web applications using HTML, CSS, JavaScript, and React.js. Experienced in backend development with Node.js and Express.js, and in deploying applications on Render. Passionate about building impactful, user-friendly products and continuously expanding into full stack development.";
 
+export const ABOUT_POINTS = [
+  "Learning and building with React.js — always improving how I write clean, responsive UIs.",
+  "Currently transitioning into full-stack development with Node.js and Express.js.",
+  "Exploring 3D modeling in Blender — combining creativity with technical skills.",
+  "Passionate about AI prompting and experimenting with running local LLM models."
+];
+
 export const SKILL_GROUPS: { label: string; items: string[] }[] = [
   { label: "Languages", items: ["JavaScript", "HTML", "CSS"] },
   { label: "Frameworks", items: ["React.js", "Node.js", "Express.js"] },

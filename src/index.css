@@ -3,13 +3,13 @@
   --bg: #0b0c10;
   --panel: rgba(var(--fg-rgb), 0.06);
   --panel-2: rgba(var(--fg-rgb), 0.045);
-  --text: rgba(var(--fg-rgb), 0.84);
-  --muted: rgba(var(--fg-rgb), 0.62);
+  --text: rgba(var(--fg-rgb), 0.92);
+  --muted: rgba(var(--fg-rgb), 0.75);
   --border: rgba(var(--fg-rgb), 0.11);
   --shadow: rgba(0, 0, 0, 0.35);
 
-  --accent: #7dd3fc;
-  --accent-2: #a78bfa;
+  --accent: #93e2ff;
+  --accent-2: #c4b5fd;
 
   --radius: 10px;
   --container: 1120px;
@@ -1429,13 +1429,35 @@ main {
 }
 
 /* Typography Refinements for About/Hobbies */
-.about p, .bullets-card li {
+.about p, .bullets li {
   line-height: 1.8;
   letter-spacing: -0.01em;
   font-size: 17px;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
+
+.bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.bullets li {
+  position: relative;
+  padding-left: 28px;
+}
+
+.bullets li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 20px;
+  line-height: 1;
+  top: 4px;
+}
+
 
 
 
@@ -1453,4 +1475,33 @@ main {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   display: inline-block;
+}
+
+.water-flow-text {
+  background: linear-gradient(
+    90deg,
+    #93e2ff,
+    #c4b5fd,
+    #ff6b6b,
+    #93e2ff
+  );
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: waterFlow 4s linear infinite;
+  display: inline-block;
+}
+
+@keyframes waterFlow {
+  0% { background-position: 0% center; }
+  100% { background-position: 300% center; }
+}
+
+.glass-premium {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }

@@ -66,7 +66,12 @@ export function Hero() {
             animate={reduce ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           >
-            {PROFILE.name}
+            <span 
+              className={isPopArtMode ? 'water-flow-text' : ''} 
+              style={!isPopArtMode ? { color: 'var(--accent)' } : {}}
+            >
+              Hardik
+            </span> Rana
           </motion.h1>
 
           <motion.p
