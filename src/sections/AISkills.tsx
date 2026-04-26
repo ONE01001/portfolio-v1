@@ -51,9 +51,9 @@ export function AISkills() {
               reduce
                 ? {}
                 : {
-                    y: -6,
-                    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
-                  }
+                  y: -6,
+                  transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+                }
             }
             style={{ "--card-glow": skill.glow } as React.CSSProperties}
           >

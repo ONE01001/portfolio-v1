@@ -66,8 +66,8 @@ export function Hero() {
             animate={reduce ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           >
-            <span 
-              className={isPopArtMode ? 'water-flow-text' : ''} 
+            <span
+              className={isPopArtMode ? 'water-flow-text' : ''}
               style={!isPopArtMode ? { color: 'var(--accent)' } : {}}
             >
               Hardik
@@ -167,9 +167,9 @@ export function Hero() {
                 enableGsap
                   ? undefined
                   : {
-                      x: reduce ? 0 : rollX,
-                      rotate: reduce ? 0 : rollR,
-                    }
+                    x: reduce ? 0 : rollX,
+                    rotate: reduce ? 0 : rollR,
+                  }
               }
             />
             <div className="hero-grid" />
@@ -177,8 +177,8 @@ export function Hero() {
               {/* <AsciiAvatar src={headshot} alt={`${PROFILE.name} ASCII portrait`} /> */}
               {/* <AsciiAvatar src={newHeadshot} alt={`${PROFILE.name} ASCII portrait`} /> */}
               <AsciiAvatar src={newHeadshotPng} alt={`${PROFILE.name} ASCII portrait`} isPopArtMode={isPopArtMode} />
-              
-              <div 
+
+              <div
                 onClick={() => setIsPopArtMode(!isPopArtMode)}
                 style={{
                   position: 'absolute',
@@ -204,9 +204,9 @@ export function Hero() {
                   alignItems: 'center',
                   padding: '2px'
                 }}>
-                  <motion.div 
+                  <motion.div
                     initial={false}
-                    animate={{ 
+                    animate={{
                       x: isPopArtMode ? 18 : 0,
                       background: isPopArtMode ? 'linear-gradient(135deg, #ff6b6b, #4ecdc4)' : '#64ffda',
                       boxShadow: isPopArtMode ? '0 0 12px rgba(255, 107, 107, 0.4)' : '0 0 12px rgba(100, 255, 218, 0.4)'
@@ -244,7 +244,7 @@ export function Hero() {
       </div>
       <div className="bg-drift" />
       {activeQr && (
-        <div 
+        <div
           onClick={() => setActiveQr(null)}
           style={{
             position: 'fixed',
@@ -258,7 +258,7 @@ export function Hero() {
             cursor: 'pointer'
           }}
         >
-          <motion.div 
+          <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
@@ -275,10 +275,10 @@ export function Hero() {
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <img 
-              src={activeQr === 'github' ? githubQr : linkedinQr} 
-              alt="QR Code" 
-              style={{ width: '240px', height: '240px', borderRadius: '12px', background: 'white', padding: '8px' }} 
+            <img
+              src={activeQr === 'github' ? githubQr : linkedinQr}
+              alt="QR Code"
+              style={{ width: '240px', height: '240px', borderRadius: '12px', background: 'white', padding: '8px' }}
             />
             <div style={{ fontWeight: 600, fontSize: '18px' }}>
               {activeQr === 'github' ? 'Scan for GitHub' : 'Scan for LinkedIn'}

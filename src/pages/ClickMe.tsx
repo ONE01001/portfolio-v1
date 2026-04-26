@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { AsciiAvatar } from "../components/AsciiAvatar";
 
 // I'll assume these will be uploaded soon
-import secretAvatar from "../assets/secret-avatar.png"; 
+import secretAvatar from "../assets/secret-avatar.png";
 import secretPhoto from "../assets/secret-photo.png";
 
 type Props = {
@@ -56,7 +56,7 @@ export function ClickMePage({ onBack }: Props) {
   return (
     <div ref={containerRef} className="secret-page" style={{ height: '500vh', background: '#050505' }}>
       {/* Sticky Background Effect */}
-      <motion.div 
+      <motion.div
         className="secret-bg"
         style={{
           position: 'fixed',
@@ -73,16 +73,16 @@ export function ClickMePage({ onBack }: Props) {
           <button className="btn btn-ghost" onClick={onBack} data-cursor="link">
             ← Back to Portfolio
           </button>
-          
+
           {/* Vibe Toggle */}
-          <div 
+          <div
             onClick={() => setIsPhotoVibe(!isPhotoVibe)}
             className="vibe-toggle"
             data-cursor="link"
           >
             <span className={!isPhotoVibe ? 'active' : ''}>COOL</span>
             <div className="vibe-switch">
-              <motion.div 
+              <motion.div
                 className="vibe-thumb"
                 animate={{ x: isPhotoVibe ? 20 : 0 }}
                 style={{
@@ -99,19 +99,42 @@ export function ClickMePage({ onBack }: Props) {
           {/* Sticky Left: The Avatar */}
           <div className="secret-avatar-sticky">
             <div className="avatar-wrapper">
-              {isPhotoVibe ? (
-                <motion.img 
-                  src={secretPhoto} 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
+              <motion.div
+                initial={false}
+                animate={{ opacity: isPhotoVibe ? 1 : 0 }}
+                transition={{ duration: 0.4 }}
+                style={{ 
+                  position: 'absolute', 
+                  inset: 0, 
+                  zIndex: isPhotoVibe ? 2 : 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <img
+                  src={secretPhoto}
                   className="original-photo"
                   alt="Hardik Rana Original"
                   loading="lazy"
-                  decoding="async"
                 />
-              ) : (
+              </motion.div>
+              
+              <motion.div
+                initial={false}
+                animate={{ opacity: isPhotoVibe ? 0 : 1 }}
+                transition={{ duration: 0.4 }}
+                style={{ 
+                  position: 'absolute', 
+                  inset: 0, 
+                  zIndex: isPhotoVibe ? 1 : 2,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
                 <AsciiAvatar src={secretAvatar} alt="Hardik Rana Secret Avatar" />
-              )}
+              </motion.div>
             </div>
           </div>
 
@@ -143,9 +166,8 @@ export function ClickMePage({ onBack }: Props) {
         </div>
       </div>
 
-      <motion.div 
+      <motion.div
         className="scroll-hint"
-        style={{ y: scrollY }}
       >
         <motion.span>{scrollText}</motion.span>
         <div className="scroll-line" />

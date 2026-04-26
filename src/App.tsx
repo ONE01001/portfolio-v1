@@ -22,7 +22,7 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 4500); // 4.5 seconds for an ultra-smooth background preparation
+    }, 3000); // 3 seconds for a faster load experience
     return () => clearTimeout(timer);
   }, []);
 

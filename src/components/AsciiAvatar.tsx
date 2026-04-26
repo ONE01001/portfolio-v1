@@ -51,16 +51,16 @@ function colorFor(alpha: number, accent: number, depth: number, time: number, is
 function measure(el: HTMLElement) {
   const rect = el.getBoundingClientRect();
   return {
-    width: Math.max(240, Math.round(rect.width)),
-    height: Math.max(220, Math.round(rect.height)),
+    width: Math.round(rect.width),
+    height: Math.round(rect.height),
   };
 }
 
 function sampleImage(image: HTMLImageElement, width: number, height: number): Glyph[] {
   const offscreen = document.createElement("canvas");
-  const ctx = offscreen.getContext("2d", { 
+  const ctx = offscreen.getContext("2d", {
     willReadFrequently: true,
-    alpha: true 
+    alpha: true
   });
   if (!ctx) return [];
 
@@ -71,7 +71,7 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
   offscreen.height = height;
   ctx.clearRect(0, 0, width, height);
 
-  const fit = 1.0; // Show full body, not just face
+  const fit = 1.15; // Zoom in to fill the box more fully
   const sourceRatio = image.width / image.height;
   let drawHeight = height * fit;
   let drawWidth = drawHeight * sourceRatio;
@@ -101,14 +101,14 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
       const red = pixels[index];
       const green = pixels[index + 1];
       const blue = pixels[index + 2];
-      let brightness = (red + green + blue) / 765;
-      
+      const brightness = (red + green + blue) / 765;
+
       // Rely on alpha channel (line 82) to skip background, NOT brightness
       // This preserves dark hair while still removing transparent background
-      
+
       // Gazijarin mapping: darker areas use sparse characters, brighter areas use dense ones
-      let b = clamp(brightness * 1.1, 0, 1);
-      
+      const b = clamp(brightness * 1.1, 0, 1);
+
       const charIndex = Math.floor(b * (CHARS.length - 1));
       const alpha = clamp(b * 0.8, 0.1, 0.75); // Softer opacity
 

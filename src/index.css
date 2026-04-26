@@ -724,15 +724,19 @@ main {
 .timeline-dot.dot-0 {
   background: rgba(125, 211, 252, 0.22);
 }
+
 .timeline-dot.dot-1 {
   background: rgba(167, 139, 250, 0.2);
 }
+
 .timeline-dot.dot-2 {
   background: rgba(125, 211, 252, 0.18);
 }
+
 .timeline-dot.dot-3 {
   background: rgba(167, 139, 250, 0.16);
 }
+
 .timeline-dot.dot-4 {
   background: rgba(125, 211, 252, 0.14);
 }
@@ -1268,7 +1272,7 @@ main {
   pointer-events: none;
 }
 
-.secret-nav, 
+.secret-nav,
 .secret-main-layout,
 .vibe-toggle,
 .btn-row,
@@ -1323,9 +1327,9 @@ main {
   flex: 1;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 0 10%;
+  padding: 0 5%;
   align-items: center;
-  gap: 60px;
+  gap: 32px;
 }
 
 .secret-avatar-sticky {
@@ -1343,6 +1347,8 @@ main {
   width: clamp(300px, 40vw, 450px);
   aspect-ratio: 1;
   position: relative;
+  overflow: visible;
+  background: transparent;
 }
 
 .original-photo {
@@ -1350,8 +1356,17 @@ main {
   height: 100%;
   object-fit: cover;
   border-radius: 24px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+
+.secret-page .ascii-avatar,
+.secret-page .ascii-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  border: none;
 }
 
 .secret-narrative-sticky {
@@ -1406,84 +1421,113 @@ main {
 }
 
 @media (max-width: 1024px) {
-  .secret-main-layout {
-    grid-template-columns: 1fr;
-    padding: 0 20px;
-    gap: 20px;
+  :root {
+    --secret-height: 500vh;
   }
   
+  .secret-content-container {
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    pointer-events: none; /* Let scroll pass through to body */
+    overflow: hidden;
+  }
+
+  .secret-nav {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 8px;
+    z-index: 30;
+    width: 100%;
+    pointer-events: auto; /* Buttons must be clickable */
+  }
+
+  .vibe-toggle {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    pointer-events: auto;
+  }
+
+  .secret-main-layout {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    pointer-events: none;
+  }
+
   .secret-avatar-sticky {
     position: sticky;
     top: 0;
     width: 100%;
-    height: 45svh;
-    z-index: 10;
-    background: #050505;
+    height: 40svh;
     display: flex;
-    align-items: center;
     justify-content: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    align-items: center;
+    z-index: 5;
+    background: transparent;
+    pointer-events: none;
   }
 
   .secret-page .avatar-wrapper {
-    width: 240px;
-    height: 240px;
+    width: min(300px, 85vw);
+    height: min(300px, 85vw);
     aspect-ratio: 1;
-    margin: 0 auto;
-    border-radius: 20px;
-    overflow: hidden;
+    pointer-events: auto;
+    overflow: visible; /* Prevent cropping */
   }
 
-  .secret-page .avatar {
-    height: 240px;
-  }
-  
   .secret-narrative-sticky {
+    flex: 1;
     position: relative;
-    z-index: 5;
-    padding-top: 20px;
-    padding-bottom: 100px;
-  }
-  
-  .narrative-block {
-    text-align: center;
-    max-width: 100%;
-    min-height: 40vh;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    padding: 0 10px;
-    font-size: 15px;
+    pointer-events: none;
+  }
+
+  .narrative-block {
+    position: absolute;
+    width: 100%;
+    max-width: 100%;
+    text-align: center;
+    padding: 0 30px;
+    pointer-events: auto;
   }
 
   .narrative-block h3 {
-    font-size: 20px;
+    font-size: 22px;
+    color: var(--accent);
+    margin-bottom: 12px;
   }
 
   .narrative-block p {
     font-size: 15px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
   }
 
   .scroll-hint {
-    bottom: auto;
-    left: auto;
-    right: 8px;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    z-index: 100;
-    pointer-events: none;
-  }
-  
-  .scroll-line {
-    width: 30px;
-    height: 1px;
-    background: linear-gradient(to right, white, transparent);
-    margin-left: 10px;
+    display: flex;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 
 /* Typography Refinements for About/Hobbies */
-.about p, .bullets li {
+.about p,
+.bullets li {
   line-height: 1.8;
   letter-spacing: -0.01em;
   font-size: 17px;
@@ -1532,13 +1576,11 @@ main {
 }
 
 .water-flow-text {
-  background: linear-gradient(
-    90deg,
-    #93e2ff,
-    #c4b5fd,
-    #ff6b6b,
-    #93e2ff
-  );
+  background: linear-gradient(90deg,
+      #93e2ff,
+      #c4b5fd,
+      #ff6b6b,
+      #93e2ff);
   background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1548,8 +1590,13 @@ main {
 }
 
 @keyframes waterFlow {
-  0% { background-position: 0% center; }
-  100% { background-position: 300% center; }
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 300% center;
+  }
 }
 
 .glass-premium {
@@ -1568,7 +1615,8 @@ main {
   height: 100vh;
   height: 100svh;
   z-index: 10000;
-  background: #0b0c10; /* Use hex directly to be safe */
+  background: #0b0c10;
+  /* Use hex directly to be safe */
   display: flex;
   align-items: center;
   justify-content: center;
