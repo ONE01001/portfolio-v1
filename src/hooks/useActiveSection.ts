@@ -16,8 +16,6 @@ export function useActiveSection(sectionIds: string[], rootMargin = "-15% 0px -7
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (Date.now() < globalLockUntil) return;
-
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
@@ -32,11 +30,3 @@ export function useActiveSection(sectionIds: string[], rootMargin = "-15% 0px -7
 
   return active;
 }
-
-// Call this to temporarily lock active section after a nav click.
-// It's implemented as a module-level function to keep the hook signature simple for the app.
-export function lockActiveSection(ms = 850) {
-  globalLockUntil = Date.now() + ms;
-}
-
-let globalLockUntil = 0;

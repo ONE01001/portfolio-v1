@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { CustomCursor } from "./components/CustomCursor";
 import { Header } from "./components/Header";
-import { lockActiveSection, useActiveSection } from "./hooks/useActiveSection";
+import { useActiveSection } from "./hooks/useActiveSection";
 import { PROFILE } from "./content";
 import { Hero } from "./sections/Hero";
 import { Projects } from "./sections/Projects";
@@ -55,7 +55,6 @@ export default function App() {
 
   const onNavigate = (id: string) => {
     setActiveManual(id);
-    lockActiveSection(900);
     if (manualTimer.current) window.clearTimeout(manualTimer.current);
     manualTimer.current = window.setTimeout(() => setActiveManual(null), 950);
     const el = document.getElementById(id);
