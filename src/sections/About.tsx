@@ -17,7 +17,7 @@ export function About() {
         >
           <p className="about-bio">{SUMMARY}</p>
           <div className="about-mini muted small">
-            I am Available for (job role, internship, freelance).
+            I am available for (job role, internship, freelance).
           </div>
         </motion.div>
       </div>
