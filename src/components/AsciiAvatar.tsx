@@ -80,8 +80,8 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
 
   const pixels = ctx.getImageData(0, 0, width, height).data;
   const isMobile = width <= 400;
-  const stepY = isMobile ? 9 : (width <= 280 ? 5 : 7);
-  const stepX = stepY * (isMobile ? 0.6 : 0.55);
+  const stepY = width <= 280 ? 5 : 7;
+  const stepX = stepY * 0.55;
   const glyphs: Glyph[] = [];
 
   for (let y = 0; y < height; y += stepY) {

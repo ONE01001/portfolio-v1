@@ -205,6 +205,9 @@ export function AISkills() {
           }
           .ai-card {
             padding: 24px 20px 20px;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            background: rgba(255, 255, 255, 0.06);
           }
         }
       `,
