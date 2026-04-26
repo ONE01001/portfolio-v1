@@ -1,5 +1,5 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { PROFILE, TECH_COLORS } from "../content";
 import headshot from "../assets/headshot.jpeg";
@@ -12,6 +12,7 @@ type Props = {
 };
 
 export function Hero({ onEmail }: Props) {
+  const [isPopArtMode, setIsPopArtMode] = useState(false);
   const reduce = useReducedMotion();
   const accentRef = useRef<HTMLDivElement | null>(null);
   const accentScrollRef = useRef<HTMLDivElement | null>(null);
@@ -146,7 +147,52 @@ export function Hero({ onEmail }: Props) {
             <div className="hero-panel-inner">
               {/* <AsciiAvatar src={headshot} alt={`${PROFILE.name} ASCII portrait`} /> */}
               {/* <AsciiAvatar src={newHeadshot} alt={`${PROFILE.name} ASCII portrait`} /> */}
-              <AsciiAvatar src={newHeadshotPng} alt={`${PROFILE.name} ASCII portrait`} />
+              <AsciiAvatar src={newHeadshotPng} alt={`${PROFILE.name} ASCII portrait`} isPopArtMode={isPopArtMode} />
+              
+              <div 
+                onClick={() => setIsPopArtMode(!isPopArtMode)}
+                style={{
+                  position: 'absolute',
+                  top: '16px',
+                  right: '16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  zIndex: 10,
+                  cursor: 'pointer',
+                  userSelect: 'none'
+                }}
+              >
+                <span style={{ fontSize: '11px', letterSpacing: '1px', color: isPopArtMode ? 'var(--muted)' : 'var(--text)', fontWeight: 700, transition: 'color 0.3s' }}>COOL</span>
+                <div style={{
+                  width: '44px',
+                  height: '24px',
+                  background: 'rgba(255, 255, 255, 0.04)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: '999px',
+                  position: 'relative',
+                  display: 'flex',
+                  alignItems: 'center',
+                  padding: '2px'
+                }}>
+                  <motion.div 
+                    initial={false}
+                    animate={{ 
+                      x: isPopArtMode ? 18 : 0,
+                      background: isPopArtMode ? 'linear-gradient(135deg, #ff6b6b, #4ecdc4)' : '#64ffda',
+                      boxShadow: isPopArtMode ? '0 0 12px rgba(255, 107, 107, 0.4)' : '0 0 12px rgba(100, 255, 218, 0.4)'
+                    }}
+                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    style={{
+                      width: '18px',
+                      height: '18px',
+                      borderRadius: '50%',
+                    }}
+                  />
+                </div>
+                <span style={{ fontSize: '11px', letterSpacing: '1px', color: isPopArtMode ? 'var(--text)' : 'var(--muted)', fontWeight: 700, transition: 'color 0.3s' }}>EXTRA COOL</span>
+              </div>
+
               <div className="hero-stat-row">
                 <div className="hero-stat">
                   <div className="hero-stat-label">Focus</div>

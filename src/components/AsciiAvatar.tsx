@@ -4,6 +4,7 @@ import { useMediaQuery } from "../hooks/useMediaQuery";
 type Props = {
   src: string;
   alt: string;
+  isPopArtMode?: boolean;
 };
 
 type Glyph = {
@@ -29,7 +30,20 @@ function mix(a: number, b: number, t: number) {
   return a + (b - a) * t;
 }
 
-function colorFor(alpha: number, accent: number, depth: number, time: number) {
+function colorFor(alpha: number, accent: number, depth: number, time: number, isPopArtMode?: boolean) {
+  if (isPopArtMode) {
+    const hues = [
+      [220, 53, 69],  // Deeper Coral/Red
+      [32, 160, 140], // Deep Mint/Teal
+      [240, 110, 30], // Vibrant Orange
+      [40, 100, 210]  // Strong Blue
+    ];
+    const colorIndex = Math.floor((depth * 4 + time * 0.0005) % hues.length);
+    const [r, g, b] = hues[colorIndex];
+    const opacity = clamp(alpha * 1.5 + accent * 0.4, 0.4, 0.9);
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+  }
+
   // Dark Mode (Hacker style)
   const r = 100, g = 255, b = 218; // #64ffda
   const opacity = clamp(alpha + accent * 0.6, 0.15, 0.75);
@@ -112,7 +126,7 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
   return glyphs;
 }
 
-export function AsciiAvatar({ src, alt }: Props) {
+export function AsciiAvatar({ src, alt, isPopArtMode = false }: Props) {
   const prefersReduced = useMediaQuery("(prefers-reduced-motion: reduce)", false);
   // Removed isFinePointer restriction so it stays alive and interactive on mobile devices
   const animate = !prefersReduced;
@@ -201,7 +215,7 @@ export function AsciiAvatar({ src, alt }: Props) {
         const fadeProgress = clamp(time / 1200, 0, 1);
         const drawAlpha = glyph.alpha * fadeProgress;
 
-        ctx.fillStyle = colorFor(drawAlpha, accent, glyph.depth, time);
+        ctx.fillStyle = colorFor(drawAlpha, accent, glyph.depth, time, isPopArtMode);
         ctx.fillText(glyph.char, glyph.x, glyph.y);
       }
     };
@@ -276,7 +290,7 @@ export function AsciiAvatar({ src, alt }: Props) {
       window.removeEventListener("resize", resize);
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
     };
-  }, [animate, src]);
+  }, [animate, src, isPopArtMode]);
 
   return (
     <div ref={rootRef} className="avatar ascii-avatar" aria-label={alt} data-cursor="drag">
