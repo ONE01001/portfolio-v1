@@ -1050,3 +1050,157 @@ main {
     display: none;
   }
 }
+
+/* --- Secret Page --- */
+.secret-page {
+  color: white;
+  overflow-x: hidden;
+  position: relative;
+}
+
+.secret-content-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.secret-nav, 
+.secret-main-layout,
+.vibe-toggle,
+.btn-row {
+  pointer-events: auto;
+}
+
+.secret-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 40px;
+  z-index: 20;
+}
+
+.vibe-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  user-select: none;
+}
+
+.vibe-toggle span {
+  color: rgba(255, 255, 255, 0.4);
+  transition: color 0.3s;
+}
+
+.vibe-toggle span.active {
+  color: white;
+}
+
+.vibe-switch {
+  width: 44px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 2px;
+}
+
+.vibe-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+}
+
+.secret-main-layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 10%;
+  align-items: center;
+  gap: 60px;
+}
+
+.secret-avatar-sticky {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-wrapper {
+  width: clamp(300px, 40vw, 450px);
+  aspect-ratio: 1;
+  position: relative;
+}
+
+.original-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.secret-narrative-sticky {
+  position: relative;
+  height: 400px;
+  display: flex;
+  align-items: center;
+}
+
+.narrative-block {
+  position: absolute;
+  max-width: 500px;
+  text-align: left;
+}
+
+.scroll-hint {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.6;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, white, transparent);
+}
+
+@media (max-width: 1024px) {
+  .secret-main-layout {
+    grid-template-columns: 1fr;
+    padding: 0 40px;
+    gap: 40px;
+  }
+  
+  .secret-avatar-sticky {
+    order: 2;
+  }
+  
+  .secret-narrative-sticky {
+    order: 1;
+    height: 300px;
+    justify-content: center;
+  }
+  
+  .narrative-block {
+    text-align: center;
+    max-width: 100%;
+  }
+}
