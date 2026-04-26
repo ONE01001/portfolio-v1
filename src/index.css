@@ -1413,42 +1413,46 @@ main {
   }
   
   .secret-avatar-sticky {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: sticky;
+    top: 0;
     width: 100%;
-    height: auto;
-    z-index: 1;
-    pointer-events: none; /* Let clicks pass through to content behind/around */
-    padding: 0;
-    margin: 0;
+    height: 45svh;
+    z-index: 10;
+    background: #050505;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   .secret-page .avatar-wrapper {
-    width: 260px;
-    height: 260px;
+    width: 240px;
+    height: 240px;
     aspect-ratio: 1;
     margin: 0 auto;
-    border-radius: 24px;
+    border-radius: 20px;
     overflow: hidden;
-    background: rgba(0,0,0,0.2); /* Dark base for better visibility */
   }
 
   .secret-page .avatar {
-    height: 260px;
+    height: 240px;
   }
   
   .secret-narrative-sticky {
     position: relative;
     z-index: 5;
-    padding-top: 20vh;
-    padding-bottom: 20vh;
+    padding-top: 20px;
+    padding-bottom: 100px;
   }
   
   .narrative-block {
     text-align: center;
     max-width: 100%;
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 10px;
     font-size: 15px;
   }
 
