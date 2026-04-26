@@ -11,11 +11,21 @@ import { Education } from "./sections/Education";
 import { About } from "./sections/About";
 import { Hobbies } from "./sections/Hobbies";
 import { Contact } from "./sections/Contact";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { LoadingScreen } from "./components/LoadingScreen";
+import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 import { ClickMePage } from "./pages/ClickMe";
 
 export default function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2200); // 2.2 seconds to allow the progress bar to finish smoothly
+    return () => clearTimeout(timer);
+  }, []);
+
   const reduce = useReducedMotion();
   const isTouch = useMediaQuery("(hover:none) and (pointer:coarse)", false);
   const { scrollYProgress } = useScroll();
@@ -50,8 +60,6 @@ export default function App() {
   const manualTimer = useRef<number | null>(null);
   const active = activeManual ?? activeObserved;
 
-
-
   const onNavigate = (id: string) => {
     setActiveManual(id);
     if (manualTimer.current) window.clearTimeout(manualTimer.current);
@@ -71,6 +79,9 @@ export default function App() {
 
   return (
     <>
+      <AnimatePresence>
+        {isLoading && <LoadingScreen key="loader" />}
+      </AnimatePresence>
       <CustomCursor />
       {!reduce && !isTouch ? (
         <motion.div className="bg-drift" style={{ y: drift }} aria-hidden="true" />
