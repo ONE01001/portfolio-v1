@@ -376,6 +376,12 @@ main {
   }
 }
 
+@media (max-width: 480px) {
+  .avatar {
+    height: 380px;
+  }
+}
+
 .ascii-canvas {
   position: absolute;
   inset: 0;
@@ -1400,8 +1406,15 @@ main {
     order: 2;
   }
 
-  .avatar-wrapper {
-    width: clamp(200px, 60vw, 320px);
+  .secret-page .avatar-wrapper {
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: auto;
+    height: auto;
+  }
+
+  .secret-page .avatar {
+    height: 320px;
   }
   
   .secret-narrative-sticky {
