@@ -3,6 +3,8 @@ import { useEffect, useMemo, useRef } from "react";
 import gsap from "gsap";
 import { PROFILE, TECH_COLORS } from "../content";
 import headshot from "../assets/headshot.jpeg";
+// import newHeadshot from "../assets/new_headshot.jpg";
+import newHeadshotPng from "../assets/new_headshot.png";
 import { AsciiAvatar } from "../components/AsciiAvatar";
 
 type Props = {
@@ -142,7 +144,9 @@ export function Hero({ onEmail }: Props) {
             />
             <div className="hero-grid" />
             <div className="hero-panel-inner">
-              <AsciiAvatar src={headshot} alt={`${PROFILE.name} ASCII portrait`} />
+              {/* <AsciiAvatar src={headshot} alt={`${PROFILE.name} ASCII portrait`} /> */}
+              {/* <AsciiAvatar src={newHeadshot} alt={`${PROFILE.name} ASCII portrait`} /> */}
+              <AsciiAvatar src={newHeadshotPng} alt={`${PROFILE.name} ASCII portrait`} />
               <div className="hero-stat-row">
                 <div className="hero-stat">
                   <div className="hero-stat-label">Focus</div>

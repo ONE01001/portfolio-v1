@@ -327,47 +327,21 @@ main {
 
 .hero-panel {
   position: relative;
-  border-radius: var(--radius);
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
-  overflow: hidden;
+  overflow: visible;
   min-height: 320px;
-  box-shadow: 0 22px 60px -26px var(--shadow);
 }
 
 .hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 52px 52px;
-  mask-image: radial-gradient(closest-side, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
-  opacity: 0.8;
+  display: none;
 }
 
 .hero-accent {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 520px;
-  height: 140px;
-  transform: translate(-50%, -50%) rotate(-14deg);
-  border-radius: 18px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(125, 211, 252, 0.22),
-    rgba(167, 139, 250, 0.18),
-    transparent
-  );
-  filter: blur(18px);
-  opacity: 0.7;
-  pointer-events: none;
+  display: none;
 }
 
 .hero-panel-inner {
   position: relative;
-  padding: 22px;
+  padding: 0;
   display: grid;
   gap: 14px;
 }
@@ -410,19 +384,13 @@ main {
 /* Canvas ASCII avatar (gazijarin-inspired) */
 .avatar {
   position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background:
-    linear-gradient(135deg, rgba(125, 211, 252, 0.08), rgba(167, 139, 250, 0.04)),
-    rgba(0, 0, 0, 0.34);
-  box-shadow: 0 26px 70px -54px rgba(125, 211, 252, 0.28);
-  height: 280px;
+  overflow: visible;
+  height: 560px;
 }
 
 @media (max-width: 900px) {
   .avatar {
-    height: 240px;
+    height: 450px;
   }
 }
 
@@ -432,20 +400,14 @@ main {
   width: 100%;
   height: 100%;
   display: block;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background: transparent;
 }
 
 .avatar-frame {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, transparent, rgba(125, 211, 252, 0.09), transparent),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 24%, rgba(0, 0, 0, 0.16));
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08),
-    inset 0 -40px 80px rgba(0, 0, 0, 0.22);
-  mix-blend-mode: screen;
-  opacity: 0.35;
-  pointer-events: none;
+  display: none;
 }
 
 .section {

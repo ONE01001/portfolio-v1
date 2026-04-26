@@ -19,7 +19,7 @@ type Glyph = {
   depth: number;
 };
 
-const CHARS = "@#%&8BWM*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";
+const CHARS = " .'`^\"\\,:;Il!i><~+_-?][}{1)(|/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
 
 function clamp(value: number, min: number, max: number) {
   return Math.max(min, Math.min(max, value));
@@ -30,18 +30,11 @@ function mix(a: number, b: number, t: number) {
 }
 
 function colorFor(alpha: number, accent: number, depth: number, time: number) {
-  const shimmer = Math.sin(time * 0.003 + alpha * 8) * 0.15;
+  // Gazijarin style: uniform monochromatic neon
+  const r = 100, g = 255, b = 218; // #64ffda
   
-  const baseR = 10, baseG = 25, baseB = 47;
-  const neonR = 100, neonG = 255, neonB = 218;
-
-  const t = clamp(depth * 1.5 + accent * 0.4 + shimmer, 0, 1);
-  
-  const r = Math.round(mix(baseR, neonR, t));
-  const g = Math.round(mix(baseG, neonG, t));
-  const b = Math.round(mix(baseB, neonB, t));
-  
-  const opacity = clamp(alpha + accent * 0.5 + shimmer, 0.2, 0.96);
+  // Opacity increases when hovering (accent)
+  const opacity = clamp(alpha + accent * 0.6, 0.15, 0.75);
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
 
@@ -62,7 +55,7 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
   offscreen.height = height;
   ctx.clearRect(0, 0, width, height);
 
-  const fit = 0.92;
+  const fit = 1.0; // Show full body, not just face
   const sourceRatio = image.width / image.height;
   let drawHeight = height * fit;
   let drawWidth = drawHeight * sourceRatio;
@@ -72,12 +65,12 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
   }
 
   const drawX = (width - drawWidth) / 2;
-  const drawY = (height - drawHeight) / 2;
+  const drawY = (height - drawHeight) / 2; // Center vertically
   ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
 
   const pixels = ctx.getImageData(0, 0, width, height).data;
-  const stepY = width <= 280 ? 7 : 8;
-  const stepX = stepY * 0.72;
+  const stepY = width <= 280 ? 5 : 6; // Balanced resolution for full body
+  const stepX = stepY * 0.55; // Tighter horizontal spacing for denser look
   const glyphs: Glyph[] = [];
 
   for (let y = 0; y < height; y += stepY) {
@@ -91,12 +84,16 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
       const red = pixels[index];
       const green = pixels[index + 1];
       const blue = pixels[index + 2];
-      const brightness = (red + green + blue) / 765;
-      const ink = 1 - brightness;
-      if (ink < 0.08) continue;
-
-      const charIndex = Math.floor(clamp(brightness, 0, 1) * (CHARS.length - 1));
-      const alpha = clamp(ink * 1.65, 0.12, 0.95);
+      let brightness = (red + green + blue) / 765;
+      
+      // Rely on alpha channel (line 82) to skip background, NOT brightness
+      // This preserves dark hair while still removing transparent background
+      
+      // Gazijarin mapping: darker areas use sparse characters, brighter areas use dense ones
+      let b = clamp(brightness * 1.1, 0, 1);
+      
+      const charIndex = Math.floor(b * (CHARS.length - 1));
+      const alpha = clamp(b * 0.8, 0.1, 0.75); // Softer opacity
 
       glyphs.push({
         originX: x,
@@ -107,7 +104,7 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
         vy: 0,
         char: CHARS[charIndex] ?? ".",
         alpha,
-        size: stepY * (0.92 + ink * 0.24),
+        size: stepY * 1.1, // Constant size for classic ASCII look
         depth: brightness,
       });
     }
@@ -145,7 +142,8 @@ export function AsciiAvatar({ src, alt }: Props) {
       const pointer = pointerRef.current;
       const radius = Math.min(width, height) * 0.23;
 
-      if (animate) {
+      ctx.canvas.style.transition = "transform 0.15s ease-out";
+      if (animate && pointer.active) {
         const dx = pointer.x - width / 2;
         const dy = pointer.y - height / 2;
         const normX = Math.atan(dx / 300) / (Math.PI / 2);
@@ -153,7 +151,7 @@ export function AsciiAvatar({ src, alt }: Props) {
         // Apply 3D CSS transform to the entire canvas for a perfect look-at effect
         ctx.canvas.style.transform = `perspective(800px) rotateX(${-normY * 12}deg) rotateY(${normX * 12}deg)`;
       } else {
-        ctx.canvas.style.transform = "none";
+        ctx.canvas.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg)";
       }
 
       for (const glyph of glyphsRef.current) {
@@ -235,12 +233,7 @@ export function AsciiAvatar({ src, alt }: Props) {
       pointerRef.current.active = false;
     };
 
-    const onWindowMove = (event: PointerEvent) => {
-      if (pointerRef.current.active) return;
-      const rect = root.getBoundingClientRect();
-      pointerRef.current.x = event.clientX - rect.left;
-      pointerRef.current.y = event.clientY - rect.top;
-    };
+
 
     const onImageLoad = () => {
       if (disposed) return;
@@ -249,7 +242,6 @@ export function AsciiAvatar({ src, alt }: Props) {
         root.addEventListener("pointerenter", onEnter);
         root.addEventListener("pointermove", onMove, { passive: true });
         root.addEventListener("pointerleave", onLeave);
-        window.addEventListener("pointermove", onWindowMove, { passive: true });
         rafRef.current = window.requestAnimationFrame(tick);
       }
     };
@@ -265,7 +257,6 @@ export function AsciiAvatar({ src, alt }: Props) {
       root.removeEventListener("pointerenter", onEnter);
       root.removeEventListener("pointermove", onMove);
       root.removeEventListener("pointerleave", onLeave);
-      window.removeEventListener("pointermove", onWindowMove);
       window.removeEventListener("resize", resize);
       if (rafRef.current) window.cancelAnimationFrame(rafRef.current);
     };
