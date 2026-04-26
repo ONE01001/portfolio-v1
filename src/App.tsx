@@ -4,6 +4,7 @@ import { Header } from "./components/Header";
 import { useActiveSection } from "./hooks/useActiveSection";
 import { PROFILE } from "./content";
 import { Hero } from "./sections/Hero";
+import { AISkills } from "./sections/AISkills";
 import { Projects } from "./sections/Projects";
 import { Skills } from "./sections/Skills";
 import { Education } from "./sections/Education";
@@ -84,6 +85,7 @@ export default function App() {
       />
       <main>
         <Hero onEmail={onEmail} />
+        <AISkills />
         <Projects />
         <Skills />
         <Education />

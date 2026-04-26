@@ -1398,6 +1398,7 @@ main {
   
   .secret-avatar-sticky {
     order: 2;
+    padding-bottom: 100px; /* Space for the scroll hint on mobile */
   }
   
   .secret-narrative-sticky {
@@ -1410,7 +1411,33 @@ main {
     text-align: center;
     max-width: 100%;
   }
+
+  .scroll-hint {
+    bottom: auto;
+    right: -20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    z-index: 100;
+  }
+  
+  .scroll-line {
+    width: 30px;
+    height: 1px;
+    background: linear-gradient(to right, white, transparent);
+    margin-left: 10px;
+  }
 }
+
+/* Typography Refinements for About/Hobbies */
+.about p, .bullets-card li {
+  line-height: 1.8;
+  letter-spacing: -0.01em;
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 12px;
+}
+
+
 
 .gradient-text {
   background: linear-gradient(135deg, #7dd3fc, #a78bfa);
