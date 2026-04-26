@@ -100,21 +100,26 @@ export function AISkills() {
           position: relative;
           padding: 32px 28px 28px;
           border-radius: 18px;
-          background: rgba(255, 255, 255, 0.025);
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          backdrop-filter: blur(24px) saturate(180%);
-          -webkit-backdrop-filter: blur(24px) saturate(180%);
+          background: rgba(255, 255, 255, 0.04);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(40px) saturate(200%);
+          -webkit-backdrop-filter: blur(40px) saturate(200%);
           overflow: hidden;
           cursor: default;
-          transition: border-color 0.4s ease, box-shadow 0.4s ease;
+          transition: border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+          box-shadow:
+            0 4px 30px rgba(0, 0, 0, 0.3),
+            inset 0 1px 0 rgba(255, 255, 255, 0.04);
         }
 
         .ai-card:hover {
-          border-color: rgba(147, 226, 255, 0.2);
+          background: rgba(255, 255, 255, 0.06);
+          border-color: rgba(147, 226, 255, 0.25);
           box-shadow:
-            0 0 0 1px rgba(147, 226, 255, 0.06),
-            0 20px 60px -12px rgba(0, 0, 0, 0.5),
-            inset 0 1px 0 rgba(255, 255, 255, 0.04);
+            0 0 0 1px rgba(147, 226, 255, 0.08),
+            0 24px 70px -12px rgba(0, 0, 0, 0.6),
+            0 0 40px rgba(147, 226, 255, 0.06),
+            inset 0 1px 0 rgba(255, 255, 255, 0.06);
         }
 
         .ai-card-glow {

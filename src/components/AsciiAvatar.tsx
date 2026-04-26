@@ -79,8 +79,9 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
   ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
 
   const pixels = ctx.getImageData(0, 0, width, height).data;
-  const stepY = width <= 280 ? 5 : 7; // Slightly lower resolution for much better performance
-  const stepX = stepY * 0.55; // Tighter horizontal spacing for denser look
+  const isMobile = width <= 400;
+  const stepY = isMobile ? 9 : (width <= 280 ? 5 : 7);
+  const stepX = stepY * (isMobile ? 0.6 : 0.55);
   const glyphs: Glyph[] = [];
 
   for (let y = 0; y < height; y += stepY) {
@@ -108,9 +109,9 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
       glyphs.push({
         originX: x,
         originY: y,
-        // Start scattered randomly for the water-drop formation effect
-        x: x + (Math.random() - 0.5) * width * 1.2,
-        y: y + (Math.random() - 0.5) * height * 1.2,
+        // On mobile, start at origin (no scatter) for instant render without lag
+        x: isMobile ? x : x + (Math.random() - 0.5) * width * 1.2,
+        y: isMobile ? y : y + (Math.random() - 0.5) * height * 1.2,
         vx: 0,
         vy: 0,
         char: CHARS[charIndex] ?? ".",
@@ -220,7 +221,8 @@ export function AsciiAvatar({ src, alt, isPopArtMode = false }: Props) {
 
     const resize = () => {
       const { width, height } = measure(root);
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const isMobile = width <= 400;
+      const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(width * dpr);
       canvas.height = Math.floor(height * dpr);
       canvas.style.width = `${width}px`;
@@ -235,13 +237,20 @@ export function AsciiAvatar({ src, alt, isPopArtMode = false }: Props) {
       draw(ctx, width, height, time);
     };
 
-    const tick = () => {
+    let lastFrameTime = 0;
+    const tick = (now: number) => {
       if (disposed) return;
-      const ctx = canvas.getContext("2d");
-      if (ctx) {
-        const { width, height } = measure(root);
-        const time = Date.now() - startTimeRef.current;
-        draw(ctx, width, height, time);
+      const { width } = measure(root);
+      const isMobile = width <= 400;
+      const interval = isMobile ? 33 : 16; // 30fps on mobile, 60fps on desktop
+      if (now - lastFrameTime >= interval) {
+        lastFrameTime = now;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          const { width: w, height: h } = measure(root);
+          const time = Date.now() - startTimeRef.current;
+          draw(ctx, w, h, time);
+        }
       }
       rafRef.current = window.requestAnimationFrame(tick);
     };
