@@ -56,7 +56,7 @@ export function Header({ activeSection, sections, onNavigate, onSecret }: Props)
         </nav>
 
         <button className="secret-link" type="button" onClick={onSecret} data-cursor="link">
-          Click me 😼
+          heyy 👀
         </button>
       </div>
     </header>

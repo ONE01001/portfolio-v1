@@ -37,6 +37,20 @@ export function ClickMePage({ onBack }: Props) {
   const opacity4 = useTransform(scrollYProgress, [0.75, 0.85, 0.95], [0, 1, 0]);
   const y4 = useTransform(scrollYProgress, [0.75, 0.85, 0.95], [20, 0, -20]);
 
+  // Pointer events logic to prevent invisible blocks from blocking clicks
+  const pe1 = useTransform(opacity1, (v) => v > 0.1 ? "auto" as const : "none" as const);
+  const pe2 = useTransform(opacity2, (v) => v > 0.1 ? "auto" as const : "none" as const);
+  const pe3 = useTransform(opacity3, (v) => v > 0.1 ? "auto" as const : "none" as const);
+  const pe4 = useTransform(opacity4, (v) => v > 0.1 ? "auto" as const : "none" as const);
+
+  // Scroll Hint Text Logic
+  const scrollText = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.8, 0.95],
+    ["Scroll Down", "Keep Scrolling", "Almost There", "Scroll Up"]
+  );
+  const scrollY = useTransform(scrollYProgress, [0, 0.1], [0, -40]);
+
   // Background progress effect
   const bgOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.1, 0.3, 0.1]);
 
@@ -103,29 +117,29 @@ export function ClickMePage({ onBack }: Props) {
           {/* Sticky Right: The Text Narrative */}
           <div className="secret-narrative-sticky">
             {/* Section 1 */}
-            <motion.div style={{ opacity: opacity1, y: y1 }} className="narrative-block">
-              <h2 className="h1">This is a secret.</h2>
-              <p className="lead">You found the personal side of this portfolio. This isn't just a site; it's a reflection of my growth.</p>
+            <motion.div style={{ opacity: opacity1, y: y1, pointerEvents: pe1 }} className="narrative-block">
+              <h2 className="h1 gradient-text">This is a secret.</h2>
+              <p className="lead">You found the personal side of this portfolio. This isn't just a site; it's a reflection of my growth and passion.</p>
             </motion.div>
 
             {/* Section 2 */}
-            <motion.div style={{ opacity: opacity2, y: y2 }} className="narrative-block">
-              <h3>Human + AI Collaboration</h3>
-              <p>I built this entire experience with the help of **Antigravity**, an AI. We spent hours debating design, optimizing canvas loops, and perfecting the "vibe." This is how I work—leveraging the latest tech to push boundaries.</p>
+            <motion.div style={{ opacity: opacity2, y: y2, pointerEvents: pe2 }} className="narrative-block">
+              <h3 className="gradient-text-2">Human + AI Collaboration</h3>
+              <p>I built this entire experience leveraging the power of **Cursor** and **Antigravity**. Beyond just using web-based AI, I've mastered running AI models **locally** on my own hardware to push the boundaries of what I can create, securely and efficiently.</p>
             </motion.div>
 
             {/* Section 3 */}
-            <motion.div style={{ opacity: opacity3, y: y3 }} className="narrative-block">
-              <h3>Inspiration</h3>
-              <p>Deeply inspired by the incredible work of **Gazi Jarin**. His approach to storytelling through code motivated me to create something more than just a typical resume.</p>
+            <motion.div style={{ opacity: opacity3, y: y3, pointerEvents: pe3 }} className="narrative-block">
+              <h3 className="gradient-text">Her Inspiration</h3>
+              <p>Deeply inspired by the incredible work of <a href="https://www.gazijarin.com/" target="_blank" rel="noreferrer" style={{ textDecoration: 'underline' }}>Gazi Jarin</a>. **Her** unique approach to storytelling through code and design motivated me to build something more than just a typical resume.</p>
             </motion.div>
 
             {/* Section 4 */}
-            <motion.div style={{ opacity: opacity4, y: y4 }} className="narrative-block">
-              <h3>The Motivation</h3>
-              <p>Web development is my focus, but 3D modeling in Blender is my passion. I'm constantly learning, updating myself on the latest AI trends, and using them to become a faster, better developer every single day.</p>
+            <motion.div style={{ opacity: opacity4, y: y4, pointerEvents: pe4 }} className="narrative-block">
+              <h3 className="gradient-text-2">The Motivation</h3>
+              <p>Web development is my focus, but 3D modeling in Blender is where I let my creativity run wild. I'm constantly learning, evolving, and using AI to become a more versatile developer every single day.</p>
               <div className="btn-row" style={{ marginTop: '24px' }}>
-                <button className="btn btn-primary" onClick={onBack}>Let's keep building</button>
+                <button className="btn btn-primary" onClick={onBack}>Back to Reality</button>
               </div>
             </motion.div>
           </div>
@@ -134,9 +148,9 @@ export function ClickMePage({ onBack }: Props) {
 
       <motion.div 
         className="scroll-hint"
-        style={{ opacity: useTransform(scrollYProgress, [0, 0.1], [1, 0]) }}
+        style={{ y: scrollY }}
       >
-        <span>Scroll Down</span>
+        <motion.span>{scrollText}</motion.span>
         <div className="scroll-line" />
       </motion.div>
     </div>

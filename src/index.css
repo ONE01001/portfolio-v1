@@ -1204,3 +1204,19 @@ main {
     max-width: 100%;
   }
 }
+
+.gradient-text {
+  background: linear-gradient(135deg, #7dd3fc, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.gradient-text-2 {
+  background: linear-gradient(135deg, #ff6b6b, #ffce6b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}

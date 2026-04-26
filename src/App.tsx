@@ -97,7 +97,7 @@ export default function App() {
             </div>
             <div className="footer-links">
               <a href="/click-me" onClick={(e) => { e.preventDefault(); navigate("/click-me"); }} data-cursor="link">
-                Click me 😼
+                heyy 👀
               </a>
               {PROFILE.socials.github ? (
                 <a href={PROFILE.socials.github} target="_blank" rel="noreferrer" data-cursor="link">
