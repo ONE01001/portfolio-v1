@@ -48,7 +48,6 @@ export function ClickMePage({ onBack }: Props) {
     [0, 0.4, 0.8, 0.95],
     ["Scroll Down", "Keep Scrolling", "Almost There", "Scroll Up"]
   );
-  const scrollY = useTransform(scrollYProgress, [0, 0.1], [0, -40]);
 
   // Background progress effect
   const bgOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.1, 0.3, 0.1]);
