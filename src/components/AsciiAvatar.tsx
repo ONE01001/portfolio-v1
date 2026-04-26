@@ -30,10 +30,8 @@ function mix(a: number, b: number, t: number) {
 }
 
 function colorFor(alpha: number, accent: number, depth: number, time: number) {
-  // Gazijarin style: uniform monochromatic neon
+  // Dark Mode (Hacker style)
   const r = 100, g = 255, b = 218; // #64ffda
-  
-  // Opacity increases when hovering (accent)
   const opacity = clamp(alpha + accent * 0.6, 0.15, 0.75);
   return `rgba(${r}, ${g}, ${b}, ${opacity})`;
 }
@@ -69,7 +67,7 @@ function sampleImage(image: HTMLImageElement, width: number, height: number): Gl
   ctx.drawImage(image, drawX, drawY, drawWidth, drawHeight);
 
   const pixels = ctx.getImageData(0, 0, width, height).data;
-  const stepY = width <= 280 ? 5 : 6; // Balanced resolution for full body
+  const stepY = width <= 280 ? 5 : 7; // Slightly lower resolution for much better performance
   const stepX = stepY * 0.55; // Tighter horizontal spacing for denser look
   const glyphs: Glyph[] = [];
 
@@ -155,6 +153,12 @@ export function AsciiAvatar({ src, alt }: Props) {
         ctx.canvas.style.transform = "perspective(800px) rotateX(0deg) rotateY(0deg)";
       }
 
+      // HUGE Optimization: Set font once outside the loop instead of thousands of times inside!
+      // Since all glyphs have the same size (stepY * 1.1), this is perfectly safe and saves massive CPU time.
+      if (glyphsRef.current.length > 0) {
+        ctx.font = `700 ${glyphsRef.current[0].size}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
+      }
+
       for (const glyph of glyphsRef.current) {
         let accent = 0;
 
@@ -197,7 +201,6 @@ export function AsciiAvatar({ src, alt }: Props) {
         const fadeProgress = clamp(time / 1200, 0, 1);
         const drawAlpha = glyph.alpha * fadeProgress;
 
-        ctx.font = `700 ${glyph.size}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace`;
         ctx.fillStyle = colorFor(drawAlpha, accent, glyph.depth, time);
         ctx.fillText(glyph.char, glyph.x, glyph.y);
       }
