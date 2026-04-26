@@ -6,7 +6,7 @@ import { PROFILE } from "../content";
 export function Contact() {
   const reduce = useReducedMotion();
   const [copied, setCopied] = useState(false);
-  const mailto = useMemo(() => `mailto:${PROFILE.email}`, []);
+  const mailto = useMemo(() => `https://mail.google.com/mail/?view=cm&fs=1&to=${PROFILE.email}`, []);
 
   const copy = useCallback(async () => {
     try {
@@ -30,6 +30,8 @@ export function Contact() {
           <motion.a
             className="btn btn-primary"
             href={mailto}
+            target="_blank"
+            rel="noreferrer"
             whileHover={reduce ? {} : { y: -1 }}
             whileTap={reduce ? {} : { scale: 0.98 }}
             data-cursor="link"

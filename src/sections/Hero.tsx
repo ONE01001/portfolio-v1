@@ -90,7 +90,9 @@ export function Hero({ onEmail }: Props) {
           >
             <motion.a
               className="btn btn-primary"
-              href={`mailto:${PROFILE.email}`}
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${PROFILE.email}`}
+              target="_blank"
+              rel="noreferrer"
               title={PROFILE.email}
               whileHover={reduce ? {} : { y: -1 }}
               whileTap={reduce ? {} : { scale: 0.98 }}
