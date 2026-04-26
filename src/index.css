@@ -1329,9 +1329,14 @@ main {
 }
 
 .secret-avatar-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
 }
 
 .avatar-wrapper {
@@ -1408,26 +1413,37 @@ main {
   }
   
   .secret-avatar-sticky {
-    order: 2;
-    padding-bottom: 40px;
-    margin-top: -20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+    z-index: 1;
+    pointer-events: none; /* Let clicks pass through to content behind/around */
+    padding: 0;
+    margin: 0;
   }
 
   .secret-page .avatar-wrapper {
-    width: 280px;
-    height: 280px;
+    width: 260px;
+    height: 260px;
     aspect-ratio: 1;
     margin: 0 auto;
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.2); /* Dark base for better visibility */
   }
 
   .secret-page .avatar {
-    height: 280px;
+    height: 260px;
   }
   
   .secret-narrative-sticky {
-    order: 1;
-    height: 250px;
-    justify-content: center;
+    position: relative;
+    z-index: 5;
+    padding-top: 20vh;
+    padding-bottom: 20vh;
   }
   
   .narrative-block {
