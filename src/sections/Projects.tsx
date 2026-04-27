@@ -32,7 +32,7 @@ export function Projects() {
                 {p.liveUrl ? (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <a
-                      className="chip chip-link"
+                      className="chip chip-link scanning-glow"
                       href={p.liveUrl}
                       target="_blank"
                       rel="noreferrer"
@@ -41,7 +41,7 @@ export function Projects() {
                       Live
                     </a>
                     <button 
-                      className="chip chip-link"
+                      className="chip chip-link scanning-glow"
                       onClick={() => setActiveProjectQr(p.title)}
                       data-cursor="link"
                       style={{ padding: '4px 6px', display: 'flex', alignItems: 'center' }}

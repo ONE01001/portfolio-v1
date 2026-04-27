@@ -104,7 +104,7 @@ export function Hero() {
                 Let's Talk
               </motion.a>
               <motion.button
-                className="btn btn-primary"
+                className="btn btn-primary scanning-glow"
                 onClick={() => setActiveQr('email')}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
@@ -130,7 +130,7 @@ export function Hero() {
                   GitHub
                 </motion.a>
                 <motion.button
-                  className="btn btn-ghost"
+                  className="btn btn-ghost scanning-glow"
                   onClick={() => setActiveQr('github')}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
@@ -156,7 +156,7 @@ export function Hero() {
                   LinkedIn
                 </motion.a>
                 <motion.button
-                  className="btn btn-ghost"
+                  className="btn btn-ghost scanning-glow"
                   onClick={() => setActiveQr('linkedin')}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}

@@ -1397,6 +1397,37 @@ main {
   align-items: center;
 }
 
+.scanning-glow {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.scanning-glow::after {
+  content: "";
+  position: absolute;
+  inset: -100%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(100, 255, 218, 0.4),
+    transparent 40%
+  );
+  animation: rotate-glow 4s linear infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes rotate-glow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
 .narrative-block {
   position: absolute;
   max-width: 500px;
