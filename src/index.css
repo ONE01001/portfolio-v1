@@ -1410,7 +1410,8 @@ main {
   background: conic-gradient(
     from 0deg,
     transparent,
-    rgba(100, 255, 218, 0.4),
+    #64ffda,
+    #a78bfa,
     transparent 40%
   );
   animation: rotate-glow 4s linear infinite;
