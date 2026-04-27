@@ -146,7 +146,7 @@ export function ClickMePage({ onBack }: Props) {
 
             <motion.div style={{ opacity: opacity2, y: y2, pointerEvents: pe2 }} className="narrative-block">
               <h3 className="gradient-text-2">Human + AI Collaboration</h3>
-              <p>I built this entire experience leveraging the power of **Cursor** and **Antigravity**. Beyond just using web-based AI, I've mastered running AI models **locally** on my own hardware to push the boundaries of what I can create, securely and efficiently.</p>
+              <p>I built this entire experience leveraging the power of **Codex** and **Antigravity**. Beyond just using web-based AI, I've mastered running AI models **locally** on my own hardware to push the boundaries of what I can create, securely and efficiently.</p>
             </motion.div>
 
             <motion.div style={{ opacity: opacity3, y: y3, pointerEvents: pe3 }} className="narrative-block">
