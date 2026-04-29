@@ -27,16 +27,17 @@ export function Projects() {
             data-cursor="drag"
           >
             <div className="project-head">
-              <h3 className="h3">{p.title}</h3>
+              <h3 className="h3" style={{ transition: 'color 0.4s ease' }}>{p.title}</h3>
               <div className="project-links" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                 {p.liveUrl ? (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <a
                       className="chip chip-link"
                       href={p.liveUrl}
                       target="_blank"
                       rel="noreferrer"
                       data-cursor="link"
+                      style={{ padding: '6px 12px' }}
                     >
                       Live
                     </a>
@@ -44,10 +45,10 @@ export function Projects() {
                       className="chip chip-link"
                       onClick={() => setActiveProjectQr(p.title)}
                       data-cursor="link"
-                      style={{ padding: '4px 6px', display: 'flex', alignItems: 'center' }}
+                      style={{ padding: '6px 8px', display: 'flex', alignItems: 'center' }}
                       title="Show QR Code"
                     >
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
                     </button>
                   </div>
                 ) : null}
@@ -58,6 +59,7 @@ export function Projects() {
                     target="_blank"
                     rel="noreferrer"
                     data-cursor="link"
+                    style={{ padding: '6px 12px' }}
                   >
                     Repo
                   </a>
@@ -66,14 +68,14 @@ export function Projects() {
             </div>
             <ul className="bullets">
               {p.description.map((d) => (
-                <li key={d} className="muted">
+                <li key={d} className="muted" style={{ fontSize: '14px', lineHeight: '1.5' }}>
                   {d}
                 </li>
               ))}
             </ul>
-            <div className="tags">
+            <div className="tags" style={{ marginTop: 'auto', paddingTop: '16px' }}>
               {p.tech.map((t) => (
-                <span className="chip" key={t} style={{ color: TECH_COLORS[t] }}>
+                <span className="chip" key={t} style={{ color: TECH_COLORS[t] || 'var(--muted)', background: 'rgba(255,255,255,0.02)' }}>
                   {t}
                 </span>
               ))}
@@ -92,8 +94,8 @@ export function Projects() {
             style={{
               position: 'fixed',
               inset: 0,
-              background: 'rgba(0,0,0,0.6)',
-              backdropFilter: 'blur(10px)',
+              background: 'rgba(0,0,0,0.65)',
+              backdropFilter: 'blur(20px)',
               zIndex: 9999,
               display: 'flex',
               alignItems: 'center',
@@ -103,40 +105,44 @@ export function Projects() {
             }}
           >
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              initial={{ scale: 0.92, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 350, damping: 28 }}
               style={{
-                background: 'var(--panel)',
-                border: '1px solid var(--border)',
-                padding: '32px',
+                background: 'rgba(15, 15, 20, 0.85)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                padding: '40px',
                 borderRadius: '32px',
-                boxShadow: '0 30px 80px rgba(0,0,0,0.6)',
+                boxShadow: '0 40px 100px rgba(0,0,0,0.8)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                gap: '20px',
-                maxWidth: '360px',
-                width: '100%'
+                gap: '24px',
+                maxWidth: '380px',
+                width: '100%',
+                position: 'relative',
+                overflow: 'hidden'
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div style={{ textAlign: 'center' }}>
-                <h3 className="h3" style={{ marginBottom: '8px' }}>{activeProject.title}</h3>
-                <p className="muted small">Scan to visit live project</p>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(147, 226, 255, 0.05), transparent)', pointerEvents: 'none' }} />
+              
+              <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+                <h3 className="h3" style={{ marginBottom: '8px', letterSpacing: '-0.02em' }}>{activeProject.title}</h3>
+                <p style={{ color: 'var(--muted)', fontSize: '14px' }}>Scan to visit live project</p>
               </div>
               
-              <div style={{ background: 'white', padding: '12px', borderRadius: '16px' }}>
+              <div style={{ background: 'white', padding: '12px', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.2)', position: 'relative', zIndex: 1 }}>
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(activeProject.liveUrl || '')}`}
                   alt="Project QR Code"
-                  style={{ width: '240px', height: '240px', display: 'block' }}
+                  style={{ width: '220px', height: '220px', display: 'block' }}
                 />
               </div>
 
-              <button className="btn btn-primary" style={{ width: '100%' }} onClick={() => setActiveProjectQr(null)}>
-                Close
+              <button className="btn btn-primary" style={{ width: '100%', marginTop: '8px', position: 'relative', zIndex: 1 }} onClick={() => setActiveProjectQr(null)}>
+                Dismiss
               </button>
             </motion.div>
           </motion.div>

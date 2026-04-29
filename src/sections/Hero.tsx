@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
 import { PROFILE, TECH_COLORS } from "../content";
@@ -88,85 +88,88 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0, y: 10 }}
             animate={reduce ? {} : { opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', marginTop: '24px' }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <motion.a
                 className="btn btn-primary"
                 href={`https://mail.google.com/mail/?view=cm&fs=1&to=${PROFILE.email}`}
                 target="_blank"
                 rel="noreferrer"
                 title={PROFILE.email}
-                whileHover={reduce ? {} : { y: -1 }}
+                whileHover={reduce ? {} : { y: -2 }}
                 whileTap={reduce ? {} : { scale: 0.98 }}
                 data-cursor="link"
-                style={{ color: "#F5792A" }}
+                style={{ color: "#F5792A", padding: "11px 20px" }}
               >
                 Let's Talk
               </motion.a>
               <motion.button
                 className="btn btn-primary"
                 onClick={() => setActiveQr('email')}
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                style={{ padding: '8px', color: '#F5792A', borderRadius: '50%', background: 'transparent' }}
+                style={{ padding: '10px', color: '#F5792A', borderRadius: '12px', background: 'rgba(245, 121, 42, 0.05)', borderColor: 'rgba(245, 121, 42, 0.15)' }}
                 title="Show QR Code"
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
               </motion.button>
             </div>
 
-            {PROFILE.socials.github ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <motion.a
-                  className="btn btn-ghost"
-                  href={PROFILE.socials.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  whileHover={reduce ? {} : { y: -1 }}
-                  whileTap={reduce ? {} : { scale: 0.99 }}
-                  data-cursor="link"
-                  style={{ color: "#A8A8A8" }}
-                >
-                  GitHub
-                </motion.a>
-                <motion.button
-                  className="btn btn-ghost"
-                  onClick={() => setActiveQr('github')}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{ padding: '8px', color: '#A8A8A8', borderRadius: '50%' }}
-                  title="Show QR Code"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                </motion.button>
-              </div>
-            ) : null}
-            {PROFILE.socials.linkedin ? (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                <motion.a
-                  className="btn btn-ghost"
-                  href={PROFILE.socials.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  whileHover={reduce ? {} : { y: -1 }}
-                  whileTap={reduce ? {} : { scale: 0.99 }}
-                  data-cursor="link"
-                  style={{ color: "#0A66C2" }}
-                >
-                  LinkedIn
-                </motion.a>
-                <motion.button
-                  className="btn btn-ghost"
-                  onClick={() => setActiveQr('linkedin')}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  style={{ padding: '8px', color: '#0A66C2', borderRadius: '50%' }}
-                  title="Show QR Code"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-                </motion.button>
-              </div>
-            ) : null}
+            <div style={{ display: 'flex', gap: '8px' }}>
+              {PROFILE.socials.github ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <motion.a
+                    className="btn btn-ghost"
+                    href={PROFILE.socials.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={reduce ? {} : { y: -2, background: 'rgba(255,255,255,0.03)' }}
+                    whileTap={reduce ? {} : { scale: 0.99 }}
+                    data-cursor="link"
+                    style={{ color: "#A8A8A8" }}
+                  >
+                    GitHub
+                  </motion.a>
+                  <motion.button
+                    className="btn btn-ghost"
+                    onClick={() => setActiveQr('github')}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{ padding: '10px', color: '#A8A8A8', borderRadius: '12px' }}
+                    title="Show QR Code"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                  </motion.button>
+                </div>
+              ) : null}
+              {PROFILE.socials.linkedin ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
+                  <motion.a
+                    className="btn btn-ghost"
+                    href={PROFILE.socials.linkedin}
+                    target="_blank"
+                    rel="noreferrer"
+                    whileHover={reduce ? {} : { y: -2, background: 'rgba(255,255,255,0.03)' }}
+                    whileTap={reduce ? {} : { scale: 0.99 }}
+                    data-cursor="link"
+                    style={{ color: "#0A66C2" }}
+                  >
+                    LinkedIn
+                  </motion.a>
+                  <motion.button
+                    className="btn btn-ghost"
+                    onClick={() => setActiveQr('linkedin')}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    style={{ padding: '10px', color: '#0A66C2', borderRadius: '12px' }}
+                    title="Show QR Code"
+                  >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                  </motion.button>
+                </div>
+              ) : null}
+            </div>
           </motion.div>
         </div>
 
@@ -186,30 +189,33 @@ export function Hero() {
             />
             <div className="hero-grid" />
             <div className="hero-panel-inner">
-              {/* <AsciiAvatar src={headshot} alt={`${PROFILE.name} ASCII portrait`} /> */}
-              {/* <AsciiAvatar src={newHeadshot} alt={`${PROFILE.name} ASCII portrait`} /> */}
               <AsciiAvatar src={newHeadshotPng} alt={`${PROFILE.name} ASCII portrait`} isPopArtMode={isPopArtMode} />
 
               <div
                 onClick={() => setIsPopArtMode(!isPopArtMode)}
                 style={{
                   position: 'absolute',
-                  top: '16px',
-                  right: '16px',
+                  top: '20px',
+                  right: '20px',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '10px',
+                  gap: '12px',
                   zIndex: 10,
                   cursor: 'pointer',
-                  userSelect: 'none'
+                  userSelect: 'none',
+                  padding: '6px 12px',
+                  borderRadius: '20px',
+                  background: 'rgba(0,0,0,0.2)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255,255,255,0.05)'
                 }}
               >
-                <span style={{ fontSize: '11px', letterSpacing: '1px', color: isPopArtMode ? 'var(--muted)' : 'var(--text)', fontWeight: 700, transition: 'color 0.3s' }}>COOL</span>
+                <span style={{ fontSize: '10px', letterSpacing: '1.5px', color: isPopArtMode ? 'rgba(255,255,255,0.3)' : 'var(--text)', fontWeight: 700, transition: 'color 0.3s' }}>COOL</span>
                 <div style={{
-                  width: '44px',
-                  height: '24px',
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  width: '40px',
+                  height: '20px',
+                  background: 'rgba(255, 255, 255, 0.06)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
                   borderRadius: '999px',
                   position: 'relative',
                   display: 'flex',
@@ -220,28 +226,28 @@ export function Hero() {
                     initial={false}
                     animate={{
                       x: isPopArtMode ? 18 : 0,
-                      background: isPopArtMode ? 'linear-gradient(135deg, #ff6b6b, #4ecdc4)' : '#64ffda',
-                      boxShadow: isPopArtMode ? '0 0 12px rgba(255, 107, 107, 0.4)' : '0 0 12px rgba(100, 255, 218, 0.4)'
+                      background: isPopArtMode ? 'linear-gradient(135deg, #ff6b6b, #c4b5fd)' : '#93e2ff',
+                      boxShadow: isPopArtMode ? '0 0 15px rgba(255, 107, 107, 0.3)' : '0 0 15px rgba(147, 226, 255, 0.3)'
                     }}
-                    transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
                     style={{
-                      width: '18px',
-                      height: '18px',
+                      width: '16px',
+                      height: '16px',
                       borderRadius: '50%',
                     }}
                   />
                 </div>
-                <span style={{ fontSize: '11px', letterSpacing: '1px', color: isPopArtMode ? 'var(--text)' : 'var(--muted)', fontWeight: 700, transition: 'color 0.3s' }}>EXTRA COOL</span>
+                <span style={{ fontSize: '10px', letterSpacing: '1.5px', color: isPopArtMode ? 'var(--text)' : 'rgba(255,255,255,0.3)', fontWeight: 700, transition: 'color 0.3s' }}>EXTRA COOL</span>
               </div>
 
               <div className="hero-stat-row">
-                <div className="hero-stat">
+                <div className="hero-stat" style={{ backdropFilter: 'blur(4px)' }}>
                   <div className="hero-stat-label">Focus</div>
                   <div className="hero-stat-value">
-                    <span style={{ color: "#F7DF1E" }}>Frontend</span> + <span style={{ color: "#a78bfa" }}>UX</span>
+                    <span style={{ color: "var(--accent)" }}>Frontend</span> + <span style={{ color: "var(--accent-2)" }}>UX</span>
                   </div>
                 </div>
-                <div className="hero-stat">
+                <div className="hero-stat" style={{ backdropFilter: 'blur(4px)' }}>
                   <div className="hero-stat-label">Stack</div>
                   <div className="hero-stat-value">
                     <span style={{ color: TECH_COLORS["React.js"] }}>React</span> /{" "}
@@ -255,56 +261,78 @@ export function Hero() {
         </div>
       </div>
       <div className="bg-drift" />
-      {activeQr && (
-        <div
-          onClick={() => setActiveQr(null)}
-          style={{
-            position: 'fixed',
-            inset: 0,
-            background: 'rgba(0,0,0,0.6)',
-            backdropFilter: 'blur(10px)',
-            zIndex: 9999,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            cursor: 'pointer'
-          }}
-        >
+      <AnimatePresence>
+        {activeQr && (
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveQr(null)}
             style={{
-              background: 'var(--panel)',
-              border: '1px solid var(--border)',
-              padding: '24px',
-              borderRadius: '24px',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+              position: 'fixed',
+              inset: 0,
+              background: 'rgba(0,0,0,0.65)',
+              backdropFilter: 'blur(20px)',
+              zIndex: 9999,
               display: 'flex',
-              flexDirection: 'column',
               alignItems: 'center',
-              gap: '16px'
+              justifyContent: 'center',
+              cursor: 'pointer',
+              padding: '20px'
             }}
-            onClick={(e) => e.stopPropagation()}
           >
-            <img
-              src={
-                activeQr === 'github' ? githubQr : 
-                activeQr === 'linkedin' ? linkedinQr : 
-                `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=mailto:${PROFILE.email}`
-              }
-              alt="QR Code"
-              style={{ width: '240px', height: '240px', borderRadius: '12px', background: 'white', padding: '8px' }}
-            />
-            <div style={{ fontWeight: 600, fontSize: '18px' }}>
-              {activeQr === 'github' ? 'Scan for GitHub' : 
-               activeQr === 'linkedin' ? 'Scan for LinkedIn' : 
-               'Scan to Email Me'}
-            </div>
-            <button className="btn btn-primary" onClick={() => setActiveQr(null)}>Close</button>
+            <motion.div
+              initial={{ scale: 0.92, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.92, opacity: 0, y: 20 }}
+              transition={{ type: "spring", stiffness: 350, damping: 28 }}
+              style={{
+                background: 'rgba(15, 15, 20, 0.85)',
+                border: '1px solid rgba(255,255,255,0.08)',
+                padding: '40px',
+                borderRadius: '32px',
+                boxShadow: '0 40px 100px rgba(0,0,0,0.8)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: '24px',
+                maxWidth: '380px',
+                width: '100%',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(147, 226, 255, 0.05), transparent)', pointerEvents: 'none' }} />
+              
+              <div style={{ background: 'white', padding: '12px', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.2)' }}>
+                <img
+                  src={
+                    activeQr === 'github' ? githubQr : 
+                    activeQr === 'linkedin' ? linkedinQr : 
+                    `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=mailto:${PROFILE.email}`
+                  }
+                  alt="QR Code"
+                  style={{ width: '220px', height: '220px', display: 'block' }}
+                />
+              </div>
+
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontWeight: 700, fontSize: '22px', letterSpacing: '-0.02em', marginBottom: '4px' }}>
+                  {activeQr === 'github' ? 'GitHub Profile' : 
+                   activeQr === 'linkedin' ? 'LinkedIn Connection' : 
+                   'Direct Email'}
+                </div>
+                <div style={{ color: 'var(--muted)', fontSize: '14px' }}>Scan with your phone camera</div>
+              </div>
+
+              <button className="btn btn-primary" style={{ width: '100%', marginTop: '8px' }} onClick={() => setActiveQr(null)}>
+                Dismiss
+              </button>
+            </motion.div>
           </motion.div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
     </section>
   );
 }
