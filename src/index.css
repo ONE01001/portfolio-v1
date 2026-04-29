@@ -1341,7 +1341,7 @@ main {
     flex-direction: column;
     z-index: 10;
     pointer-events: none;
-    overflow-x: hidden; /* Restore overflow lock */
+    overflow-x: hidden;
   }
 
   .secret-nav {
@@ -1667,7 +1667,8 @@ main {
     grid-template-columns: 1fr;
     gap: 32px;
     text-align: left;
-    padding-top: 0; /* Zeroed out */
+    padding-top: 0;
+    padding-inline: 20px; /* Added edge protection */
   }
 
   .hero-copy {
@@ -1702,6 +1703,7 @@ main {
 @media (max-width: 768px) {
   .section {
     padding: 64px 0;
+    padding-inline: 20px; /* Added edge protection */
   }
 
   .h1 {
