@@ -26,9 +26,9 @@ export function Projects() {
             transition={{ type: "spring", stiffness: 420, damping: 32 }}
             data-cursor="drag"
           >
-            <div className="project-head">
-              <h3 className="h3" style={{ transition: 'color 0.4s ease' }}>{p.title}</h3>
-              <div className="project-links" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="project-head" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '16px' }}>
+              <h3 className="h3" style={{ transition: 'color 0.4s ease', flex: 1 }}>{p.title}</h3>
+              <div className="project-links" style={{ display: 'flex', alignItems: 'center', gap: '6px', flexShrink: 0 }}>
                 {p.liveUrl ? (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <a
@@ -45,10 +45,12 @@ export function Projects() {
                       className="chip chip-link"
                       onClick={() => setActiveProjectQr(p.title)}
                       data-cursor="link"
-                      style={{ padding: '6px 8px', display: 'flex', alignItems: 'center' }}
+                      style={{ padding: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                       title="Show QR Code"
                     >
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>
+                      </svg>
                     </button>
                   </div>
                 ) : null}
@@ -93,7 +95,10 @@ export function Projects() {
             onClick={() => setActiveProjectQr(null)}
             style={{
               position: 'fixed',
-              inset: 0,
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
               background: 'rgba(0,0,0,0.65)',
               backdropFilter: 'blur(20px)',
               zIndex: 9999,
@@ -101,7 +106,7 @@ export function Projects() {
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              padding: '20px'
+              padding: '24px'
             }}
           >
             <motion.div
@@ -114,7 +119,7 @@ export function Projects() {
                 border: '1px solid rgba(255,255,255,0.08)',
                 padding: '40px',
                 borderRadius: '32px',
-                boxShadow: '0 40px 100px rgba(0,0,0,0.8)',
+                boxShadow: '0 40px 1000px rgba(0,0,0,0.8)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -133,11 +138,20 @@ export function Projects() {
                 <p style={{ color: 'var(--muted)', fontSize: '14px' }}>Scan to visit live project</p>
               </div>
               
-              <div style={{ background: 'white', padding: '12px', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.2)', position: 'relative', zIndex: 1 }}>
+              <div style={{ 
+                background: 'white', 
+                padding: '12px', 
+                borderRadius: '20px', 
+                boxShadow: '0 10px 40px rgba(0,0,0,0.2)', 
+                position: 'relative', 
+                zIndex: 1,
+                width: '100%',
+                maxWidth: '220px'
+              }}>
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(activeProject.liveUrl || '')}`}
                   alt="Project QR Code"
-                  style={{ width: '220px', height: '220px', display: 'block' }}
+                  style={{ width: '100%', height: 'auto', display: 'block' }}
                 />
               </div>
 

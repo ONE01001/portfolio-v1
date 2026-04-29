@@ -109,10 +109,12 @@ export function Hero() {
                 onClick={() => setActiveQr('email')}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                style={{ padding: '10px', color: '#F5792A', borderRadius: '12px', background: 'rgba(245, 121, 42, 0.05)', borderColor: 'rgba(245, 121, 42, 0.15)' }}
+                style={{ padding: '10px', color: '#F5792A', borderRadius: '12px', background: 'rgba(245, 121, 42, 0.05)', borderColor: 'rgba(245, 121, 42, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                 title="Show QR Code"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>
+                </svg>
               </motion.button>
             </div>
 
@@ -136,10 +138,12 @@ export function Hero() {
                     onClick={() => setActiveQr('github')}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    style={{ padding: '10px', color: '#A8A8A8', borderRadius: '12px' }}
+                    style={{ padding: '10px', color: '#A8A8A8', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                     title="Show QR Code"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>
+                    </svg>
                   </motion.button>
                 </div>
               ) : null}
@@ -162,13 +166,62 @@ export function Hero() {
                     onClick={() => setActiveQr('linkedin')}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    style={{ padding: '10px', color: '#0A66C2', borderRadius: '12px' }}
+                    style={{ padding: '10px', color: '#0A66C2', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                     title="Show QR Code"
                   >
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/>
+                    </svg>
                   </motion.button>
                 </div>
               ) : null}
+            </div>
+
+            <div
+              onClick={() => setIsPopArtMode(!isPopArtMode)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '12px',
+                marginTop: '16px',
+                cursor: 'pointer',
+                userSelect: 'none',
+                padding: '8px 16px',
+                borderRadius: '20px',
+                background: 'rgba(255,255,255,0.03)',
+                border: '1px solid rgba(255,255,255,0.05)',
+                width: 'fit-content'
+              }}
+              data-cursor="link"
+            >
+              <span style={{ fontSize: '10px', letterSpacing: '1.5px', color: isPopArtMode ? 'rgba(255,255,255,0.3)' : 'var(--text)', fontWeight: 700, transition: 'color 0.3s' }}>STANDARD</span>
+              <div style={{
+                width: '36px',
+                height: '18px',
+                background: 'rgba(255, 255, 255, 0.06)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                borderRadius: '999px',
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '2px'
+              }}>
+                <motion.div
+                  initial={false}
+                  animate={{
+                    x: isPopArtMode ? 16 : 0,
+                    background: isPopArtMode ? 'linear-gradient(135deg, #ff6b6b, #c4b5fd)' : '#93e2ff',
+                    boxShadow: isPopArtMode ? '0 0 10px rgba(255, 107, 107, 0.3)' : '0 0 10px rgba(147, 226, 255, 0.3)'
+                  }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  style={{
+                    width: '14px',
+                    height: '14px',
+                    borderRadius: '50%',
+                  }}
+                />
+              </div>
+              <span style={{ fontSize: '10px', letterSpacing: '1.5px', color: isPopArtMode ? 'var(--text)' : 'rgba(255,255,255,0.3)', fontWeight: 700, transition: 'color 0.3s' }}>VIVID</span>
             </div>
           </motion.div>
         </div>
@@ -190,55 +243,6 @@ export function Hero() {
             <div className="hero-grid" />
             <div className="hero-panel-inner">
               <AsciiAvatar src={newHeadshotPng} alt={`${PROFILE.name} ASCII portrait`} isPopArtMode={isPopArtMode} />
-
-              <div
-                onClick={() => setIsPopArtMode(!isPopArtMode)}
-                style={{
-                  position: 'absolute',
-                  top: '20px',
-                  right: '20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '12px',
-                  zIndex: 10,
-                  cursor: 'pointer',
-                  userSelect: 'none',
-                  padding: '6px 12px',
-                  borderRadius: '20px',
-                  background: 'rgba(0,0,0,0.2)',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255,255,255,0.05)'
-                }}
-              >
-                <span style={{ fontSize: '10px', letterSpacing: '1.5px', color: isPopArtMode ? 'rgba(255,255,255,0.3)' : 'var(--text)', fontWeight: 700, transition: 'color 0.3s' }}>COOL</span>
-                <div style={{
-                  width: '40px',
-                  height: '20px',
-                  background: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
-                  borderRadius: '999px',
-                  position: 'relative',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '2px'
-                }}>
-                  <motion.div
-                    initial={false}
-                    animate={{
-                      x: isPopArtMode ? 18 : 0,
-                      background: isPopArtMode ? 'linear-gradient(135deg, #ff6b6b, #c4b5fd)' : '#93e2ff',
-                      boxShadow: isPopArtMode ? '0 0 15px rgba(255, 107, 107, 0.3)' : '0 0 15px rgba(147, 226, 255, 0.3)'
-                    }}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                    style={{
-                      width: '16px',
-                      height: '16px',
-                      borderRadius: '50%',
-                    }}
-                  />
-                </div>
-                <span style={{ fontSize: '10px', letterSpacing: '1.5px', color: isPopArtMode ? 'var(--text)' : 'rgba(255,255,255,0.3)', fontWeight: 700, transition: 'color 0.3s' }}>EXTRA COOL</span>
-              </div>
 
               <div className="hero-stat-row">
                 <div className="hero-stat" style={{ backdropFilter: 'blur(4px)' }}>
