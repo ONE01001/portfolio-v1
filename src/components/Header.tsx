@@ -43,13 +43,6 @@ export function Header({ activeSection, sections, onNavigate, onSecret }: Props)
                 data-cursor="link"
               >
                 <span>{s.label}</span>
-                {isActive ? (
-                  <motion.span
-                    className="nav-underline"
-                    layoutId="nav-underline"
-                    transition={{ type: "spring", stiffness: 550, damping: 45 }}
-                  />
-                ) : null}
               </button>
             );
           })}

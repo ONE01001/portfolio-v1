@@ -207,26 +207,32 @@ a {
 
 .nav-link.is-active {
   color: var(--text);
+  font-weight: 600; /* Subtle weight increase for active state */
 }
 
-.nav-underline {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 6px;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  opacity: 0.95;
-}
+
 
 .hero {
   padding: 64px 0 18px;
 }
 
-.hero,
 .section {
-  scroll-margin-top: 78px;
+  padding: 100px 0;
+  scroll-margin-top: 80px;
+}
+
+.section-head {
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 12px;
 }
 
 .bg-drift {
