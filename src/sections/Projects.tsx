@@ -38,6 +38,7 @@ export function Projects() {
                       rel="noreferrer"
                       data-cursor="link"
                       style={{ padding: '6px 12px' }}
+                      aria-label={`View ${p.title} live demo`}
                     >
                       Live
                     </a>
@@ -62,6 +63,7 @@ export function Projects() {
                     rel="noreferrer"
                     data-cursor="link"
                     style={{ padding: '6px 12px' }}
+                    aria-label={`View ${p.title} source code on GitHub`}
                   >
                     Repo
                   </a>

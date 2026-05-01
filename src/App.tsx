@@ -1,17 +1,18 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, lazy, Suspense } from "react";
 import { CustomCursor } from "./components/CustomCursor";
 import { Header } from "./components/Header";
 import { useActiveSection } from "./hooks/useActiveSection";
 import { PROFILE } from "./content";
 import { Hero } from "./sections/Hero";
-import { AISkills } from "./sections/AISkills";
-import { Projects } from "./sections/Projects";
-import { Skills } from "./sections/Skills";
-import { Education } from "./sections/Education";
-import { About } from "./sections/About";
-import { Hobbies } from "./sections/Hobbies";
-import { Contact } from "./sections/Contact";
 import { LoadingScreen } from "./components/LoadingScreen";
+
+const AISkills = lazy(() => import("./sections/AISkills").then(m => ({ default: m.AISkills })));
+const Projects = lazy(() => import("./sections/Projects").then(m => ({ default: m.Projects })));
+const Skills = lazy(() => import("./sections/Skills").then(m => ({ default: m.Skills })));
+const Education = lazy(() => import("./sections/Education").then(m => ({ default: m.Education })));
+const About = lazy(() => import("./sections/About").then(m => ({ default: m.About })));
+const Hobbies = lazy(() => import("./sections/Hobbies").then(m => ({ default: m.Hobbies })));
+const Contact = lazy(() => import("./sections/Contact").then(m => ({ default: m.Contact })));
 import { motion, AnimatePresence, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useMediaQuery } from "./hooks/useMediaQuery";
 import { ClickMePage } from "./pages/ClickMe";
@@ -20,10 +21,8 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000); // 3 seconds for a faster load experience
-    return () => clearTimeout(timer);
+    // Artificial delay removed. Site loads as soon as React is ready.
+    setIsLoading(false);
   }, []);
 
   const reduce = useReducedMotion();
@@ -102,13 +101,15 @@ export default function App() {
       />
       <main>
         <Hero />
-        <AISkills />
-        <Projects />
-        <Skills />
-        <About />
-        <Hobbies />
-        <Education />
-        <Contact />
+        <Suspense fallback={<div className="section-loader" style={{ height: '400px' }} />}>
+          <AISkills />
+          <Projects />
+          <Skills />
+          <About />
+          <Hobbies />
+          <Education />
+          <Contact />
+        </Suspense>
         <footer className="footer">
           <div className="container footer-inner">
             <div className="muted small">

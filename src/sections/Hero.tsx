@@ -1,25 +1,32 @@
 import { motion, useReducedMotion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
-import gsap from "gsap";
 import { PROFILE, TECH_COLORS } from "../content";
-// import newHeadshot from "../assets/new_headshot.jpg";
-import newHeadshotPng from "../assets/new_headshot.png";
+import newHeadshot from "../assets/new_headshot.jpg";
+// import newHeadshotPng from "../assets/new_headshot.png";
 import githubQr from "../assets/github-qr.png";
 import linkedinQr from "../assets/linkedin-qr.png";
 import { AsciiAvatar } from "../components/AsciiAvatar";
+import { useMotionValue, useSpring } from "framer-motion";
 
 export function Hero() {
   const [isPopArtMode, setIsPopArtMode] = useState(false);
   const [activeQr, setActiveQr] = useState<string | null>(null);
   const reduce = useReducedMotion();
-  const accentRef = useRef<HTMLDivElement | null>(null);
   const accentScrollRef = useRef<HTMLDivElement | null>(null);
-  const enableGsap = useMemo(() => {
+  
+  // Replace GSAP with Framer Motion values for the pointer effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const springConfig = { damping: 25, stiffness: 150 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
+
+  const enableEffects = useMemo(() => {
     if (reduce) return false;
     if (typeof window === "undefined") return false;
     const fine = window.matchMedia("(hover:hover) and (pointer:fine)").matches;
-    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    return fine && !rm;
+    return fine;
   }, [reduce]);
 
   const { scrollYProgress } = useScroll({
@@ -30,22 +37,18 @@ export function Hero() {
   const rollR = useTransform(scrollYProgress, [0, 1], [-10, 10]);
 
   useEffect(() => {
-    if (!enableGsap || !accentRef.current) return;
-
-    const el = accentRef.current;
-    const setX = gsap.quickTo(el, "x", { duration: 0.6, ease: "power3.out" });
-    const setY = gsap.quickTo(el, "y", { duration: 0.6, ease: "power3.out" });
+    if (!enableEffects) return;
 
     const onMove = (e: PointerEvent) => {
       const dx = (e.clientX / window.innerWidth - 0.5) * 32;
       const dy = (e.clientY / window.innerHeight - 0.5) * 24;
-      setX(dx);
-      setY(dy);
+      mouseX.set(dx);
+      mouseY.set(dy);
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => window.removeEventListener("pointermove", onMove);
-  }, [enableGsap]);
+  }, [enableEffects, mouseX, mouseY]);
 
   return (
     <section id="top" className="hero">
@@ -226,23 +229,19 @@ export function Hero() {
           </motion.div>
         </div>
 
-        <div className="hero-right" aria-hidden="true">
+        <div className="hero-right">
           <div className="hero-panel">
             <motion.div
-              ref={accentRef}
               className="hero-accent"
-              style={
-                enableGsap
-                  ? undefined
-                  : {
-                    x: reduce ? 0 : rollX,
-                    rotate: reduce ? 0 : rollR,
-                  }
-              }
+              style={{
+                x: reduce ? 0 : enableEffects ? springX : rollX,
+                y: reduce ? 0 : enableEffects ? springY : 0,
+                rotate: reduce ? 0 : rollR,
+              }}
             />
             <div className="hero-grid" />
             <div className="hero-panel-inner">
-              <AsciiAvatar src={newHeadshotPng} alt={`${PROFILE.name} ASCII portrait`} isPopArtMode={isPopArtMode} />
+              <AsciiAvatar src={newHeadshot} alt={`${PROFILE.name} ASCII portrait`} isPopArtMode={isPopArtMode} />
 
               <div className="hero-stat-row">
                 <div className="hero-stat" style={{ backdropFilter: 'blur(4px)' }}>

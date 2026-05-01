@@ -290,6 +290,7 @@ export function AsciiAvatar({ src, alt, isPopArtMode = false }: Props) {
     };
 
     image.onload = onImageLoad;
+    image.decoding = "async";
     image.src = src;
     if (image.complete) onImageLoad();
 

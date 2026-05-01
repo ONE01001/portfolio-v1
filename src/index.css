@@ -34,6 +34,13 @@ html {
   html {
     scroll-behavior: auto;
   }
+  
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
@@ -219,6 +226,8 @@ a {
 .section {
   padding: 100px 0;
   scroll-margin-top: 80px;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
 }
 
 .section-head {
